@@ -1,13 +1,11 @@
 (ns app.core
   (:require
-   [reagent.core :as reagent]
-   [reagent.dom :as rdom]
-   [re-frame.core :as re-frame]
-   [app.events :as events]
-   [app.views :as views]
-   [app.config :as config]
-   ))
-
+    [reagent.core :as reagent]
+    [reagent.dom :as rdom]
+    [re-frame.core :as re-frame]
+    [app.events :as events]
+    [app.views :as views]
+    [app.config :as config]))
 
 (defn dev-setup []
   (when config/debug?
