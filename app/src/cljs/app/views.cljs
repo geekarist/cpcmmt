@@ -4,8 +4,19 @@
     [app.subs :as subs]
     ))
 
+(defn home-panel []
+  [:button
+   {:on-click #(re-frame/dispatch [:navigate-to :panel/start-end-selection])}
+   "Where to?"])
+
+(defn start-end-selection-panel []
+  [:p "Please select your start and end points"])
+
 (defn main-panel []
-  (let [name (re-frame/subscribe [::subs/name])]
-    [:div
-     [:button {:on-click #(re-frame/dispatch [:open-search])} "Where to?"]
-     ]))
+  (let [active-panel (re-frame/subscribe [:active-panel])]
+    (fn []
+      [:div
+       ((condp = @active-panel
+          :panel/home home-panel
+          :panel/start-end-selection start-end-selection-panel))
+       ])))
