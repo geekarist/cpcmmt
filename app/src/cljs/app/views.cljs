@@ -1,6 +1,6 @@
 (ns app.views
   (:require
-    [rf.core :as rf]
+    [re-frame.core :as rf]
     [app.subs :as subs]
     [app.events :as ev]))
 
