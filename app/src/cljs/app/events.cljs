@@ -10,6 +10,6 @@
     db/default-db))
 
 (re-frame/reg-event-db
-  :navigate-to
+  ::navigate-to
   (fn [db [_ value]]
     (assoc db :active-panel value)))
