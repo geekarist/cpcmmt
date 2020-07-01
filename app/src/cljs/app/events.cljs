@@ -21,11 +21,12 @@
 
 (re-frame/reg-event-db
   ::set-journey-end
-  (fn [db [_ value]]                                        ; FIXME: Value is always nil
+  (fn [db [_ value]]
     (assoc db :journey-end value)))
 
 (re-frame/reg-event-db
   ::get-journeys
   (fn [db [_ _]]
-    (prn "From " (:journey-start db) " to " (:journey-end db) " and back again")
-    (assoc db :journeys ["Hello"])))
+    (->> [1 2 3 4 5 6 7 8 9]
+         (map #(str "Journey from " (:journey-start db) " to " (:journey-end db) " " %))
+         (assoc db :journeys))))
