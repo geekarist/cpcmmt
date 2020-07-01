@@ -14,10 +14,10 @@
   [:div
    [:p [:input {:type        "text"
                 :placeholder "Start"
-                :on-change   #(rf/dispatch [::ev/set-journey-start (.-value %)])}]]
+                :on-change   #(rf/dispatch [::ev/set-journey-start (-> % .-target .-value)])}]]
    [:p [:input {:type        "text"
                 :placeholder "End"
-                :on-change   #(rf/dispatch [::ev/set-journey-end (.-value %)])}]]
+                :on-change   #(rf/dispatch [::ev/set-journey-end (-> % .-target .-value)])}]]
    [:p [:button {:on-click #(rf/dispatch [::ev/get-journeys])} "Go!"]]])
 
 (defn main-panel []
