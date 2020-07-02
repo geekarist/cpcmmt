@@ -6,3 +6,8 @@
   ::active-panel
   (fn [db]
     (:active-panel db)))
+
+(re-frame/reg-sub
+  ::journeys
+  (fn [db]
+    (:journeys db)))

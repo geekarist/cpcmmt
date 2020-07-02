@@ -24,9 +24,10 @@
   (fn [db [_ value]]
     (assoc db :journey-end value)))
 
-(re-frame/reg-event-db
-  ::get-journeys
-  (fn [db [_ _]]
-    (->> [1 2 3 4 5 6 7 8 9]
-         (map #(str "Journey from " (:journey-start db) " to " (:journey-end db) " " %))
-         (assoc db :journeys))))
+(defn- handle-get-journeys [db [_ _]]
+  (as-> [1 2 3 4 5 6 7 8 9] v
+        (map #(str "Journey from " (:journey-start db) " to " (:journey-end db) " " %) v)
+        (assoc db :journeys v)
+        (assoc v :active-panel :panel/journeys)))
+
+(re-frame/reg-event-db ::get-journeys handle-get-journeys)
