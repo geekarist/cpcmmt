@@ -33,7 +33,7 @@
                                :devtools    {:http-root "resources/public"
                                              :http-port 8280
                                              }
-                               :build-hooks [(app.build-hooks/include-css "TODO.css")]}}}
+                               :build-hooks [(app.build-hooks/include-file "node_modules/bootstrap/dist/css/bootstrap.min.css")]}}}
 
   :aliases {"dev"          ["with-profile" "dev" "do"
                             ["shadow" "watch" "app"]]
