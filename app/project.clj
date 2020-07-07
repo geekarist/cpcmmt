@@ -9,7 +9,7 @@
                  [re-frame "0.12.0"]]
 
   :plugins [[lein-shadow "0.2.0"]
-            
+
             [lein-shell "0.5.0"]]
 
   :min-lein-version "2.9.0"
@@ -23,17 +23,17 @@
                              :macosx  "open"
                              :linux   "xdg-open"}}}
 
-  :shadow-cljs {:nrepl {:port 8777}
-                
-                :builds {:app {:target :browser
-                               :output-dir "resources/public/js/compiled"
-                               :asset-path "/js/compiled"
-                               :modules {:app {:init-fn app.core/init
-                                               :preloads [devtools.preload]}}
+  :shadow-cljs {:nrepl  {:port 8777}
 
-                               :devtools {:http-root "resources/public"
-                                          :http-port 8280
-                                          }}}}
+                :builds {:app {:target      :browser
+                               :output-dir  "resources/public/js/compiled"
+                               :asset-path  "/js/compiled"
+                               :modules     {:app {:init-fn  app.core/init
+                                                   :preloads [devtools.preload]}}
+                               :devtools    {:http-root "resources/public"
+                                             :http-port 8280
+                                             }
+                               :build-hooks [(app.build-hooks/include-css "TODO.css")]}}}
 
   :aliases {"dev"          ["with-profile" "dev" "do"
                             ["shadow" "watch" "app"]]
@@ -48,11 +48,11 @@
 
   :profiles
   {:dev
-   {:dependencies [[binaryage/devtools "1.0.0"]]
-    :source-paths ["dev"]}
+         {:dependencies [[binaryage/devtools "1.0.0"]]
+          :source-paths ["dev"]}
 
    :prod {}
-   
-}
+
+   }
 
   :prep-tasks [])
