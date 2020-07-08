@@ -16,3 +16,6 @@
 /.shadow-cljs/
 .idea
 app.iml
+
+# Other
+/resources/public/libs/

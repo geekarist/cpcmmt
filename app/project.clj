@@ -6,10 +6,10 @@
                                org.clojure/google-closure-library-third-party]]
                  [thheller/shadow-cljs "2.9.3"]
                  [reagent "0.10.0"]
-                 [re-frame "0.12.0"]]
+                 [re-frame "0.12.0"]
+                 [me.raynes/fs "1.4.6"]]
 
   :plugins [[lein-shadow "0.2.0"]
-
             [lein-shell "0.5.0"]]
 
   :min-lein-version "2.9.0"
@@ -33,7 +33,9 @@
                                :devtools    {:http-root "resources/public"
                                              :http-port 8280
                                              }
-                               :build-hooks [(app.build-hooks/include-file "node_modules/bootstrap/dist/css/bootstrap.min.css")]}}}
+                               :build-hooks [(app.build-hooks/include-file
+                                               "node_modules/bootstrap/dist"
+                                               "resources/public/libs/bootstrap")]}}}
 
   :aliases {"dev"          ["with-profile" "dev" "do"
                             ["shadow" "watch" "app"]]
@@ -51,8 +53,6 @@
          {:dependencies [[binaryage/devtools "1.0.0"]]
           :source-paths ["dev"]}
 
-   :prod {}
-
-   }
+   :prod {}}
 
   :prep-tasks [])
