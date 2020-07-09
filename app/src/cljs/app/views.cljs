@@ -11,14 +11,14 @@
     "Where to?"]])
 
 (defn start-end-selection-panel []
-  [:div
-   [:p [:input {:type        "text"
-                :placeholder "Start"
-                :on-change   #(rf/dispatch [::ev/set-journey-start (-> % .-target .-value)])}]]
-   [:p [:input {:type        "text"
-                :placeholder "End"
-                :on-change   #(rf/dispatch [::ev/set-journey-end (-> % .-target .-value)])}]]
-   [:p [:button {:on-click #(rf/dispatch [::ev/get-journeys])} "Go!"]]])
+  [:div.container.mt-3
+   [:div.form-group [:input.form-control {:type        "text"
+                                          :placeholder "Start"
+                                          :on-change   #(rf/dispatch [::ev/set-journey-start (-> % .-target .-value)])}]]
+   [:div.form-group [:input.form-control {:type        "text"
+                                          :placeholder "End"
+                                          :on-change   #(rf/dispatch [::ev/set-journey-end (-> % .-target .-value)])}]]
+   [:button.btn.btn-primary {:on-click #(rf/dispatch [::ev/get-journeys])} "Go!"]])
 
 (defn journey-view [journey]
   [:div {:key journey} journey])
