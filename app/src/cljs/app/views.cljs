@@ -5,8 +5,8 @@
     [app.events :as ev]))
 
 (defn home-panel []
-  [:div
-   [:button
+  [:div.container
+   [:button.btn.btn-primary.mt-3
     {:on-click #(rf/dispatch [::ev/navigate-to :panel/start-end-selection])}
     "Where to?"]])
 
