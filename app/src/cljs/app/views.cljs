@@ -21,11 +21,12 @@
    [:button.btn.btn-primary {:on-click #(rf/dispatch [::ev/get-journeys])} "Go!"]])
 
 (defn journey-view [journey]
-  [:div {:key journey} journey])
+  [:div.card.mb-3 {:key journey}
+   [:div.card-body journey]])
 
 (defn journeys-panel []
   (let [journeys (rf/subscribe [::subs/journeys])]
-    [:div (map journey-view @journeys)]))
+    [:div.container.mt-3 (map journey-view @journeys)]))
 
 (defn main-panel []
   (let [active-panel (rf/subscribe [::subs/active-panel])]
