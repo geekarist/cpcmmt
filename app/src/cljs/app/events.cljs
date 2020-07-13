@@ -30,3 +30,8 @@
         (assoc v :active-panel :panel/journeys)))
 
 (re-frame/reg-event-db ::get-journeys handle-get-journeys)
+
+(comment
+  (in-ns 'app.events)
+  (handle-get-journeys {:journey-start "a"
+                        :journey-end   "b"} []))
