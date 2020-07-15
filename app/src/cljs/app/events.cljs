@@ -23,9 +23,13 @@
   (fn [db [_ value]]
     (assoc db :journey-end value)))
 
+(defn- fake-journey [[num db] _]
+  (str "Journey from " (:journey-start db) " to " (:journey-end db) " " num))
+
 (defn- handle-get-journeys [db [_ _]]
   (as-> [1 2 3 4 5 6 7 8 9] v
-        (map #(str "Journey from " (:journey-start db) " to " (:journey-end db) " " %) v)
+        (map (fn [num] [num db]) v)                         ; `(map #([% db]) v)` does not work 🤔
+        (map fake-journey v)
         (assoc db :journeys v)
         (assoc v :active-panel :panel/journeys)))
 
