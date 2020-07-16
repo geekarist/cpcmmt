@@ -2,7 +2,8 @@
   (:require
     [re-frame.core :as rf]
     [app.subs :as subs]
-    [app.events :as ev]))
+    [app.events :as ev]
+    [clojure.string :as str]))
 
 (defn home-panel []
   [:div.container
@@ -22,7 +23,12 @@
 
 (defn journey-view [journey]
   [:div.card.mb-3 {:key journey}
-   [:div.card-body journey]])
+   [:div.card-body
+    [:p (->> (::ev/segments journey)
+             (str/join " · "))]
+    [:p "Duration: " (::ev/duration journey)]
+    [:p "From: " (::ev/start-station journey) " (" (::ev/start-date journey) ")"]
+    [:span "To: " (::ev/end-station journey) " (" (::ev/end-date journey) ")"]]])
 
 (defn journeys-panel []
   (let [journeys (rf/subscribe [::subs/journeys])]
