@@ -23,14 +23,20 @@
 
 (defn journey-view [journey]
   [:div.card.mb-3 {:key journey}
-   [:div.card-body
+   [:div.card-body.pl-2.pr-2
     [:div.container
-     [:div.row
-      (->> (::ev/segments journey)
-           (str/join " · "))
-      " · " (::ev/duration journey)]
-     [:div.row "From: " (::ev/start-station journey) " (" (::ev/start-date journey) ")"]
-     [:div.row "To: " (::ev/end-station journey) " (" (::ev/end-date journey) ")"]]]])
+     [:div.row.no-gutters.pb-2
+      [:div.col (->> (::ev/segments journey)
+                     (str/join " · "))]
+      [:div.col.text-right (::ev/duration journey)]]
+     [:div.row.no-gutters.pl-1
+      [:div.col-2.text-right.pr-1 "From:"]
+      [:div.col-7 (::ev/start-station journey)]
+      [:div.col-3.text-right (::ev/start-date journey)]]
+     [:div.row.no-gutters.pl-1
+      [:div.col-2.text-right.pr-1 "To:"]
+      [:div.col-7 (::ev/end-station journey)]
+      [:div.col-3.text-right (::ev/end-date journey)]]]]])
 
 (defn journeys-panel []
   (let [journeys (rf/subscribe [::subs/journeys])]
