@@ -23,6 +23,20 @@
   (fn [db [_ value]]
     (assoc db :journey-end value)))
 
+(re-frame/reg-event-fx
+  ::journey-start-validation
+  (fn [{:keys [db]} coeffects-map
+       event-vector]
+    {:db (assoc db :journey-start
+                   (str "Start with map: " coeffects-map " and events: " event-vector))}))
+
+(re-frame/reg-event-fx
+  ::journey-end-validation
+  (fn [{:keys [db]} coeffects-map
+       event-vector]
+    {:db (assoc db :journey-end
+                   (str "End with map: " coeffects-map " and events: " event-vector))}))
+
 (defn- fake-journey [[num db] _]
   (comment (str "Journey from " (:journey-start db) " to " (:journey-end db) " " num))
   {::segments   ["Walk" "R" "14"]
@@ -34,26 +48,31 @@
   [(:journey-start db)
    (:journey-end db)])
 
+(defn- todo [desc & args]
+  (println "To do:" desc args))
+
 (defn- to-geocode-request [address]
-  (todo))
+  (todo "to-geocode-request"))
 
 (defn- send-to-ws [request]
-  (todo))
+  (todo "send-to-ws"))
 
 (defn- only-coordinates [response]
-  (todo))
+  (todo "only-coordinates"))
 
 (defn- geocode [address]
+  (println "Geocoding" address)
   (-> address
       (to-geocode-request)
       (send-to-ws)
       (only-coordinates)))
 
 (defn- to-url-params [start-and-end]
-  (todo))
+  (todo "to-url-params")
+  start-and-end)
 
 (defn- journeys-request-url [start-and-end-params]
-  (todo))
+  (todo "journeys-request-url") start-and-end-params)
 
 (defn- journeys-request-obj [request-url]
   {:method :get
@@ -68,10 +87,18 @@
        (map geocode)                                        ; Find coordinates of start and end
        (map to-url-params)                                  ; Convert coordinates to URL params
        (journeys-request-url)                               ; Build URL
-       (journeys-request-obj)                               ; Build request map
-       )
-  {:method :get
-   :url    "https://api.navitia.io/v1/journeys?from=-122.4752;37.80826&to=-122.402770;37.794682"})
+       ;(journeys-request-obj)                               ; Build request map
+       ))
+
+(comment
+  (in-ns 'app.events)
+  (make-journeys-request {:journey-start "a"
+                          :journey-end   "b"})
+  (only-start-and-end {:journey-start "a"
+                       :journey-end   "b"})
+  (->> ["a" "b"]
+       (map geocode))
+  (geocode "a"))
 
 (defn- handle-get-journeys [db [_ _]]
   (as-> [1 2 3 4 5 6 7 8 9] v

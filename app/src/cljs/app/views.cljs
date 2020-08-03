@@ -15,10 +15,12 @@
   [:div.container.mt-3
    [:div.form-group [:input.form-control {:type        "text"
                                           :placeholder "Start"
-                                          :on-change   #(rf/dispatch [::ev/set-journey-start (-> % .-target .-value)])}]]
+                                          :on-change   #(rf/dispatch [::ev/set-journey-start (-> % .-target .-value)])
+                                          :on-blur     #(rf/dispatch [::ev/journey-start-validation])}]]
    [:div.form-group [:input.form-control {:type        "text"
                                           :placeholder "End"
-                                          :on-change   #(rf/dispatch [::ev/set-journey-end (-> % .-target .-value)])}]]
+                                          :on-change   #(rf/dispatch [::ev/set-journey-end (-> % .-target .-value)])
+                                          :on-blur     #(rf/dispatch [::ev/journey-end-validation])}]]
    [:button.btn.btn-primary {:on-click #(rf/dispatch [::ev/get-journeys])} "Go!"]])
 
 (defn journey-view [journey]
