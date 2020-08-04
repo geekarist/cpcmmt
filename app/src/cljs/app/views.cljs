@@ -12,20 +12,25 @@
     "Where to?"]])
 
 (defn start-end-selection-panel []
-  [:div.container.mt-3
-   [:div.form-group
-    [:input.form-control
-     {:type        "text"
-      :placeholder "Start"
-      :on-change   #(rf/dispatch [::ev/set-journey-start (-> % .-target .-value)])
-      :on-blur     #(rf/dispatch [::ev/journey-start-validation])}]]
-   [:div.form-group
-    [:input.form-control
-     {:type        "text"
-      :placeholder "End"
-      :on-change   #(rf/dispatch [::ev/set-journey-end (-> % .-target .-value)])
-      :on-blur     #(rf/dispatch [::ev/journey-end-validation])}]]
-   [:button.btn.btn-primary {:on-click #(rf/dispatch [::ev/get-journeys])} "Go!"]])
+  (let [journey-start (rf/subscribe [::subs/journey-start])
+        journey-end (rf/subscribe [::subs/journey-end])]
+    (fn []
+      [:div.container.mt-3
+       [:div.form-group
+        [:input.form-control
+         {:type        "text"
+          :placeholder "Start"
+          :value       @journey-start
+          :on-change   #(rf/dispatch [::ev/set-journey-start (-> % .-target .-value)])
+          :on-blur     #(rf/dispatch [::ev/journey-start-validation])}]]
+       [:div.form-group
+        [:input.form-control
+         {:type        "text"
+          :placeholder "End"
+          :value       @journey-end
+          :on-change   #(rf/dispatch [::ev/set-journey-end (-> % .-target .-value)])
+          :on-blur     #(rf/dispatch [::ev/journey-end-validation])}]]
+       [:button.btn.btn-primary {:on-click #(rf/dispatch [::ev/get-journeys])} "Go!"]])))
 
 (defn journey-view [journey]
   [:div.card.mb-3 {:key journey}

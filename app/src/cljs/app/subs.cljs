@@ -11,3 +11,13 @@
   ::journeys
   (fn [db]
     (:journeys db)))
+
+(re-frame/reg-sub
+  ::journey-start
+  (fn [db]
+    (:journey-start db)))
+
+(re-frame/reg-sub
+  ::journey-end
+  (fn [db]
+    (:journey-end db)))
