@@ -28,7 +28,8 @@
   (fn [{:keys [db]} coeffects-map
        event-vector]
     {:db (assoc db :journey-start
-                   (str "Start with map: " coeffects-map " and events: " event-vector))}))
+                   (str "Start with map: " coeffects-map
+                        " and events: " event-vector))}))
 
 (re-frame/reg-event-fx
   ::journey-end-validation
