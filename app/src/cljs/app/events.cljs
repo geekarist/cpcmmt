@@ -14,6 +14,12 @@
     (assoc db :active-panel value)))
 
 (re-frame/reg-event-db
+  ::nav-to-autosuggest
+  (fn [db [_ value]]
+    (assoc db :active-panel :panel/autosuggest
+              :autosuggest-value value)))
+
+(re-frame/reg-event-db
   ::set-journey-start
   (fn [db [_ value]]
     (assoc db :journey-start value)))

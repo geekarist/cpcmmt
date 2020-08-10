@@ -21,3 +21,8 @@
   ::journey-end
   (fn [db]
     (:journey-end db)))
+
+(re-frame/reg-sub
+  ::autosuggest-value
+  (fn [db]
+    (:autosuggest-value db)))

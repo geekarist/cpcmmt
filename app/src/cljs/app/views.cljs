@@ -21,14 +21,18 @@
         :placeholder "Start"
         :value       @journey-start
         :on-change   #(rf/dispatch [::ev/set-journey-start (-> % .-target .-value)])
-        :on-blur     #(rf/dispatch [::ev/journey-start-validation])}]]
+        :on-focus    #(rf/dispatch [::ev/nav-to-autosuggest (-> % .-target .-value)])
+        ;:on-blur     #(rf/dispatch [::ev/journey-start-validation])
+        }]]
      [:div.form-group
       [:input.form-control
        {:type        "text"
         :placeholder "End"
         :value       @journey-end
         :on-change   #(rf/dispatch [::ev/set-journey-end (-> % .-target .-value)])
-        :on-blur     #(rf/dispatch [::ev/journey-end-validation])}]]
+        :on-focus    #(rf/dispatch [::ev/nav-to-autosuggest (-> % .-target .-value)])
+        ;:on-blur     #(rf/dispatch [::ev/journey-end-validation])
+        }]]
      [:button.btn.btn-primary {:on-click #(rf/dispatch [::ev/get-journeys])} "Go!"]]))
 
 (defn journey-view [journey]
@@ -52,10 +56,15 @@
   (let [journeys (rf/subscribe [::subs/journeys])]
     [:div.container.mt-3 (map journey-view @journeys)]))
 
+(defn autosuggest-panel []
+  (let [value (rf/subscribe [::subs/autosuggest-value])]
+    [:p (str "Yo! " @value)]))
+
 (defn main-panel []
   (let [active-panel (rf/subscribe [::subs/active-panel])]
     (fn []
       (condp = @active-panel
         :panel/home (home-panel)
         :panel/start-end-selection (start-end-selection-panel)
-        :panel/journeys (journeys-panel)))))
+        :panel/journeys (journeys-panel)
+        :panel/autosuggest (autosuggest-panel)))))
