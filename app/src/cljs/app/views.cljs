@@ -3,12 +3,13 @@
     [re-frame.core :as rf]
     [app.subs :as subs]
     [app.events :as ev]
-    [clojure.string :as str]))
+    [clojure.string :as str]
+    [app.db :as db]))
 
 (defn home-panel []
   [:div.container
    [:button.btn.btn-primary.mt-3
-    {:on-click #(rf/dispatch [::ev/navigate-to :panel/start-end-selection])}
+    {:on-click #(rf/dispatch [::ev/navigate-to ::db/panel-start-end-selection])}
     "Where to?"]])
 
 (defn start-end-selection-panel []
@@ -64,7 +65,7 @@
   (let [active-panel (rf/subscribe [::subs/active-panel])]
     (fn []
       (condp = @active-panel
-        :panel/home (home-panel)
-        :panel/start-end-selection (start-end-selection-panel)
-        :panel/journeys (journeys-panel)
-        :panel/autosuggest (autosuggest-panel)))))
+        ::db/panel-home (home-panel)
+        ::db/panel-start-end-selection (start-end-selection-panel)
+        ::db/panel-journeys (journeys-panel)
+        ::db/panel-autosuggest (autosuggest-panel)))))

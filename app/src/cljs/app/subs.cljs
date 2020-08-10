@@ -1,28 +1,29 @@
 (ns app.subs
   (:require
-   [re-frame.core :as re-frame]))
+    [re-frame.core :as re-frame]
+    [app.db :as db]))
 
 (re-frame/reg-sub
   ::active-panel
   (fn [db]
-    (:active-panel db)))
+    (::db/active-panel db)))
 
 (re-frame/reg-sub
   ::journeys
   (fn [db]
-    (:journeys db)))
+    (::db/journeys db)))
 
 (re-frame/reg-sub
   ::journey-start
   (fn [db]
-    (:journey-start db)))
+    (::db/journey-start db)))
 
 (re-frame/reg-sub
   ::journey-end
   (fn [db]
-    (:journey-end db)))
+    (::db/journey-end db)))
 
 (re-frame/reg-sub
   ::autosuggest-value
   (fn [db]
-    (:autosuggest-value db)))
+    (::db/autosuggest-value db)))
