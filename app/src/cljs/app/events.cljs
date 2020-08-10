@@ -20,6 +20,11 @@
               ::db/autosuggest-value value)))
 
 (re-frame/reg-event-db
+  ::set-autosuggest-value
+  (fn [db [_ value]]
+    (assoc db ::db/autosuggest-value value)))
+
+(re-frame/reg-event-db
   ::set-journey-start
   (fn [db [_ value]]
     (assoc db ::db/journey-start value)))
