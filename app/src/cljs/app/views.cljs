@@ -61,9 +61,10 @@
   (let [value (rf/subscribe [::subs/autosuggest-value])]
     [:div.container.mt-3
      [:div.form-group
-      [:input.form-control {:type      "text"
-                            :value     @value
-                            :on-change #(rf/dispatch [::ev/set-autosuggest-value (-> % .-target .-value)])}]]]))
+      [:input.form-control
+       {:type      "text"
+        :value     @value
+        :on-change #(rf/dispatch [::ev/set-autosuggest-value (-> % .-target .-value)])}]]]))
 
 (defn main-panel []
   (let [active-panel (rf/subscribe [::subs/active-panel])]

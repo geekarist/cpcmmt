@@ -19,10 +19,13 @@
     (assoc db ::db/active-panel ::db/panel-autosuggest
               ::db/autosuggest-value value)))
 
-(re-frame/reg-event-db
+(re-frame/reg-event-fx
   ::set-autosuggest-value
-  (fn [db [_ value]]
-    (assoc db ::db/autosuggest-value value)))
+  (fn [coeffects event]
+    (let [db (:db coeffects)
+          value (second event)]
+      (println value)
+      {:db (assoc db ::db/autosuggest-value value)})))
 
 (re-frame/reg-event-db
   ::set-journey-start
