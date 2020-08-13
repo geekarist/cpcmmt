@@ -1,7 +1,8 @@
 (ns app.events
   (:require
     [re-frame.core :as re-frame]
-    [app.db :as db]))
+    [app.db :as db]
+    [app.effects :as ef]))
 
 (re-frame/reg-event-db
   ::initialize-db
@@ -17,12 +18,13 @@
   ::nav-to-autosuggest
   (fn [db [_ value]]
     (assoc db ::db/active-panel ::db/panel-autosuggest
-              ::db/autosuggest-value value)))
+              ::db/autosuggest-query value)))
 
 (re-frame/reg-event-fx
-  ::set-autosuggest-value
+  ::set-autosuggest-query
   (fn [{db :db} [_ value]]
-    {:db (assoc db ::db/autosuggest-value value)}))
+    {:db                  (assoc db ::db/autosuggest-query value)
+     ::ef/get-suggestions value}))
 
 (re-frame/reg-event-db
   ::set-journey-start

@@ -64,7 +64,7 @@
       [:input.form-control
        {:type      "text"
         :value     @value
-        :on-change #(rf/dispatch [::ev/set-autosuggest-value (-> % .-target .-value)])}]]]))
+        :on-change #(rf/dispatch [::ev/set-autosuggest-query (-> % .-target .-value)])}]]]))
 
 (defn main-panel []
   (let [active-panel (rf/subscribe [::subs/active-panel])]

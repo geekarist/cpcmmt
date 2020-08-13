@@ -26,4 +26,4 @@
 (re-frame/reg-sub
   ::autosuggest-value
   (fn [db]
-    (::db/autosuggest-value db)))
+    (::db/autosuggest-query db)))
