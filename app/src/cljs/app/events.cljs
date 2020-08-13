@@ -21,11 +21,8 @@
 
 (re-frame/reg-event-fx
   ::set-autosuggest-value
-  (fn [coeffects event]
-    (let [db (:db coeffects)
-          value (second event)]
-      (println value)
-      {:db (assoc db ::db/autosuggest-value value)})))
+  (fn [{db :db} [_ value]]
+    {:db (assoc db ::db/autosuggest-value value)}))
 
 (re-frame/reg-event-db
   ::set-journey-start
