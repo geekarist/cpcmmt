@@ -28,11 +28,10 @@
   (fn [{db :db} [_ value]]
     {:db (assoc db ::db/autosuggest-query value)
      ::ef/get-suggestions
-         {:method :get
-          :url    (str "https://api.navitia.io/v1/coverage/" navitia-coverage
-                       "/places?q=" query
-                       "&disable_geojson=true"
-                       "&key=" sec/navitia-api-key)}}))
+         {:url    (str "https://api.navitia.io/v1/coverage/" navitia-coverage "/places")
+          :params {:q               query
+                   :key             sec/navitia-api-key
+                   :disable_geojson "true"}}}))
 
 (re-frame/reg-event-db
   ::set-journey-start
