@@ -19,3 +19,4 @@ app.iml
 
 # Other
 /resources/public/css/bootstrap/
+/src/cljs/app/secrets.cljs

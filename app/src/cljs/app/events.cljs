@@ -2,7 +2,8 @@
   (:require
     [re-frame.core :as re-frame]
     [app.db :as db]
-    [app.effects :as ef]))
+    [app.effects :as ef]
+    [app.secrets :as sec]))
 
 (re-frame/reg-event-db
   ::initialize-db
@@ -20,8 +21,7 @@
     (assoc db ::db/active-panel ::db/panel-autosuggest
               ::db/autosuggest-query value)))
 
-(def navitia-coverage "sandbox")
-(def navitia-api-key "3b036afe-0110-4202-b9ed-99718476c2e0")
+(def navitia-coverage "fr-idf")
 
 (re-frame/reg-event-fx
   ::set-autosuggest-query
@@ -32,7 +32,7 @@
           :url    (str "https://api.navitia.io/v1/coverage/" navitia-coverage
                        "/places?q=" query
                        "&disable_geojson=true"
-                       "&key=" navitia-api-key)}}))
+                       "&key=" sec/navitia-api-key)}}))
 
 (re-frame/reg-event-db
   ::set-journey-start
