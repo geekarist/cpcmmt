@@ -29,7 +29,7 @@
     {:db (assoc db ::db/autosuggest-query value)
      ::ef/get-suggestions
          {:url    (str "https://api.navitia.io/v1/coverage/" navitia-coverage "/places")
-          :params {:q               query
+          :params {:q               value
                    :key             sec/navitia-api-key
                    :disable_geojson "true"}}}))
 
