@@ -3,5 +3,5 @@
 
 (re-frame/reg-fx
   ::get-suggestions
-  (fn [query]
-    (println query)))
+  (fn [request]
+    (println request)))

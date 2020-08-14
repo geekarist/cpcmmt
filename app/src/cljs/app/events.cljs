@@ -20,11 +20,19 @@
     (assoc db ::db/active-panel ::db/panel-autosuggest
               ::db/autosuggest-query value)))
 
+(def navitia-coverage "sandbox")
+(def navitia-api-key "3b036afe-0110-4202-b9ed-99718476c2e0")
+
 (re-frame/reg-event-fx
   ::set-autosuggest-query
   (fn [{db :db} [_ value]]
-    {:db                  (assoc db ::db/autosuggest-query value)
-     ::ef/get-suggestions value}))
+    {:db (assoc db ::db/autosuggest-query value)
+     ::ef/get-suggestions
+         {:method :get
+          :url    (str "https://api.navitia.io/v1/coverage/" navitia-coverage
+                       "/places?q=" query
+                       "&disable_geojson=true"
+                       "&key=" navitia-api-key)}}))
 
 (re-frame/reg-event-db
   ::set-journey-start
