@@ -23,15 +23,33 @@
 
 (def navitia-coverage "fr-idf")
 
+(def autosuggest-debounce-delay-ms 1000)
+
+(re-frame/reg-event-fx
+  ::set-autosuggest-query-delayed
+  [(re-frame/inject-cofx ::ef/get-current-time)]
+  (fn [{db              :db
+        current-time-ms ::ef/current-time-ms}
+       [_ value]]
+    {::ef/get-suggestions
+     (if (>= current-time-ms
+             (+ (::db/autosuggest-last-query-time-ms db)
+                autosuggest-debounce-delay-ms))
+       {:url    (str "https://api.navitia.io/v1/coverage/" navitia-coverage "/places")
+        :params {:q               value
+                 :key             sec/navitia-api-key
+                 :disable_geojson "true"}})}))
+
 (re-frame/reg-event-fx
   ::set-autosuggest-query
-  (fn [{db :db} [_ value]]
-    {:db (assoc db ::db/autosuggest-query value)
-     ::ef/get-suggestions
-         {:url    (str "https://api.navitia.io/v1/coverage/" navitia-coverage "/places")
-          :params {:q               value
-                   :key             sec/navitia-api-key
-                   :disable_geojson "true"}}}))
+  [(re-frame/inject-cofx ::ef/get-current-time)]
+  (fn [{db              :db
+        current-time-ms ::ef/current-time-ms}
+       [_ value]]
+    {:db             (assoc db ::db/autosuggest-query value
+                               ::db/autosuggest-last-query-time-ms current-time-ms)
+     :dispatch-later {:ms       autosuggest-debounce-delay-ms
+                      :dispatch [::set-autosuggest-query-delayed value]}}))
 
 (re-frame/reg-event-db
   ::set-journey-start
