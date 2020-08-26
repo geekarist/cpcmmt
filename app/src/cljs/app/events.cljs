@@ -3,7 +3,9 @@
     [re-frame.core :as re-frame]
     [app.db :as db]
     [app.effects :as ef]
-    [app.secrets :as sec]))
+    [app.secrets :as sec]
+    [goog.string :as gstr]
+    [goog.string.format]))
 
 (re-frame/reg-event-db
   ::initialize-db
@@ -32,10 +34,11 @@
         current-time-ms ::ef/current-time-ms}
        [_ value]]
     {::ef/get-suggestions
-     (if (>= current-time-ms
-             (+ (::db/autosuggest-last-query-time-ms db)
-                autosuggest-debounce-delay-ms))
-       {:url    (str "https://api.navitia.io/v1/coverage/" navitia-coverage "/places")
+     (if (and (not= value "")
+              (>= current-time-ms
+                  (+ (::db/autosuggest-last-query-time-ms db)
+                     autosuggest-debounce-delay-ms)))
+       {:url    (gstr/format "https://api.navitia.io/v1/coverage/%s/places" navitia-coverage)
         :params {:q               value
                  :key             sec/navitia-api-key
                  :disable_geojson "true"}})}))
@@ -48,8 +51,8 @@
        [_ value]]
     {:db             (assoc db ::db/autosuggest-query value
                                ::db/autosuggest-last-query-time-ms current-time-ms)
-     :dispatch-later {:ms       autosuggest-debounce-delay-ms
-                      :dispatch [::set-autosuggest-query-delayed value]}}))
+     :dispatch-later [{:ms       autosuggest-debounce-delay-ms
+                       :dispatch [::set-autosuggest-query-delayed value]}]}))
 
 (re-frame/reg-event-db
   ::set-journey-start
