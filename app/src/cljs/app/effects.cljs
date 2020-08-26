@@ -9,4 +9,4 @@
 (re-frame/reg-cofx
   ::get-current-time
   (fn [coeffects _]
-    (assoc coeffects ::current-time-ms (js/Date.))))
+    (assoc coeffects ::current-time-ms (.getTime (js/Date.)))))
