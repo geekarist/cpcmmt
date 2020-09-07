@@ -9,7 +9,7 @@
 (defn home-panel []
   [:div.container
    [:button.btn.btn-primary.mt-3
-    {:on-click #(rf/dispatch [::ev/navigate-to ::db/panel-start-end-selection])}
+    {:on-click #(rf/dispatch [::ev/navigation-to ::db/panel-start-end-selection])}
     "Where to?"]])
 
 (defn start-end-selection-panel []
@@ -21,8 +21,8 @@
        {:type        "text"
         :placeholder "Start"
         :value       @journey-start
-        :on-change   #(rf/dispatch [::ev/set-journey-start (-> % .-target .-value)])
-        :on-focus    #(rf/dispatch [::ev/nav-to-autosuggest (-> % .-target .-value)])
+        :on-change   #(rf/dispatch [::ev/journey-start-change (-> % .-target .-value)])
+        :on-focus    #(rf/dispatch [::ev/navigation-to-autosuggest (-> % .-target .-value)])
         ;:on-blur     #(rf/dispatch [::ev/journey-start-validation])
         }]]
      [:div.form-group
@@ -30,11 +30,11 @@
        {:type        "text"
         :placeholder "End"
         :value       @journey-end
-        :on-change   #(rf/dispatch [::ev/set-journey-end (-> % .-target .-value)])
-        :on-focus    #(rf/dispatch [::ev/nav-to-autosuggest (-> % .-target .-value)])
+        :on-change   #(rf/dispatch [::ev/journey-end-change (-> % .-target .-value)])
+        :on-focus    #(rf/dispatch [::ev/navigation-to-autosuggest (-> % .-target .-value)])
         ;:on-blur     #(rf/dispatch [::ev/journey-end-validation])
         }]]
-     [:button.btn.btn-primary {:on-click #(rf/dispatch [::ev/get-journeys])} "Go!"]]))
+     [:button.btn.btn-primary {:on-click #(rf/dispatch [::ev/journey-search-submission])} "Go!"]]))
 
 (defn journey-view [journey]
   [:div.card.mb-3 {:key journey}
@@ -64,7 +64,7 @@
       [:input.form-control
        {:type      "text"
         :value     @value
-        :on-change #(rf/dispatch [::ev/set-autosuggest-query (-> % .-target .-value)])}]]]))
+        :on-change #(rf/dispatch [::ev/autosuggest-query-change (-> % .-target .-value)])}]]]))
 
 (defn main-panel []
   (let [active-panel (rf/subscribe [::subs/active-panel])]

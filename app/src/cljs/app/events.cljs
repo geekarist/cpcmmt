@@ -8,17 +8,17 @@
     [goog.string.format]))
 
 (re-frame/reg-event-db
-  ::initialize-db
+  ::db-initialization
   (fn [_ _]
     db/default-db))
 
 (re-frame/reg-event-db
-  ::navigate-to
+  ::navigation-to
   (fn [db [_ value]]
     (assoc db ::db/active-panel value)))
 
 (re-frame/reg-event-db
-  ::nav-to-autosuggest
+  ::navigation-to-autosuggest
   (fn [db [_ value]]
     (assoc db ::db/active-panel ::db/panel-autosuggest
               ::db/autosuggest-query value)))
@@ -28,7 +28,7 @@
 (def autosuggest-debounce-delay-ms 1000)
 
 (re-frame/reg-event-fx
-  ::set-autosuggest-query-delayed
+  ::autosuggest-query-confirmation
   [(re-frame/inject-cofx ::ef/get-current-time)]
   (fn [{db              :db
         current-time-ms ::ef/current-time-ms}
@@ -44,7 +44,7 @@
                  :disable_geojson "true"}})}))
 
 (re-frame/reg-event-fx
-  ::set-autosuggest-query
+  ::autosuggest-query-change
   [(re-frame/inject-cofx ::ef/get-current-time)]
   (fn [{db              :db
         current-time-ms ::ef/current-time-ms}
@@ -52,15 +52,15 @@
     {:db             (assoc db ::db/autosuggest-query value
                                ::db/autosuggest-last-query-time-ms current-time-ms)
      :dispatch-later [{:ms       autosuggest-debounce-delay-ms
-                       :dispatch [::set-autosuggest-query-delayed value]}]}))
+                       :dispatch [::autosuggest-query-confirmation value]}]}))
 
 (re-frame/reg-event-db
-  ::set-journey-start
+  ::journey-start-change
   (fn [db [_ value]]
     (assoc db ::db/journey-start value)))
 
 (re-frame/reg-event-db
-  ::set-journey-end
+  ::journey-end-change
   (fn [db [_ value]]
     (assoc db ::db/journey-end value)))
 
@@ -149,7 +149,7 @@
         (assoc db ::db/journeys v)
         (assoc v ::db/active-panel ::db/panel-journeys)))
 
-(re-frame/reg-event-db ::get-journeys handle-get-journeys)
+(re-frame/reg-event-db ::journey-search-submission handle-get-journeys)
 
 (comment
   (in-ns 'app.events)
