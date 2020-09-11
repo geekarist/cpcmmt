@@ -5,7 +5,8 @@
     [app.effects :as ef]
     [app.secrets :as sec]
     [goog.string :as gstr]
-    [goog.string.format]))
+    [goog.string.format]
+    [app.config :as conf]))
 
 (re-frame/reg-event-db
   ::db-initialization
@@ -38,7 +39,7 @@
                  (+ (::db/autosuggest-last-query-time-ms db)
                     autosuggest-debounce-delay-ms)))
       {::ef/get-suggestions
-       {:url        (gstr/format "https://api.navitia.io/v1/coverage/%s/places" navitia-coverage)
+       {:url        (gstr/format (str conf/navitia-base-url "/v1/coverage/%s/places") navitia-coverage)
         :params     {:q               value
                      :key             sec/navitia-api-key
                      :disable_geojson "true"}
