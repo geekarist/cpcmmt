@@ -33,15 +33,17 @@
   (fn [{db              :db
         current-time-ms ::ef/current-time-ms}
        [_ value]]
-    {::ef/get-suggestions
-     (if (and (not= value "")
-              (>= current-time-ms
-                  (+ (::db/autosuggest-last-query-time-ms db)
-                     autosuggest-debounce-delay-ms)))
-       {:url    (gstr/format "https://api.navitia.io/v1/coverage/%s/places" navitia-coverage)
-        :params {:q               value
-                 :key             sec/navitia-api-key
-                 :disable_geojson "true"}})}))
+    (if (and (not= value "")
+             (>= current-time-ms
+                 (+ (::db/autosuggest-last-query-time-ms db)
+                    autosuggest-debounce-delay-ms)))
+      {::ef/get-suggestions
+       {:url        (gstr/format "https://api.navitia.io/v1/coverage/%s/places" navitia-coverage)
+        :params     {:q               value
+                     :key             sec/navitia-api-key
+                     :disable_geojson "true"}
+        :on-success ::suggestions-resp-received
+        :on-error   ::suggestions-err-received}})))
 
 (re-frame/reg-event-fx
   ::autosuggest-query-change
@@ -79,6 +81,18 @@
     {:db (assoc db ::db/journey-end
                    (str "End with map: " coeffects-map " and events: " event-vector))}))
 
+(re-frame/reg-event-db
+  ::suggestions-resp-received
+  (fn [db event-vec]
+    (println event-vec)
+    db))
+
+(re-frame/reg-event-db
+  ::suggestions-err-received
+  (fn [db event-vec]
+    (println event-vec)
+    db))
+
 (defn- fake-journey [[num db] _]
   (comment (str "Journey from " (::db/journey-start db) " to " (::db/journey-end db) " " num))
   {::segments   ["Walk" "R" "14"]
@@ -93,13 +107,13 @@
 (defn- todo [desc & args]
   (println "To do:" desc args))
 
-(defn- to-geocode-request [address]
+(defn- to-geocode-request [_]
   (todo "to-geocode-request"))
 
-(defn- send-to-ws [request]
+(defn- send-to-ws [_]
   (todo "send-to-ws"))
 
-(defn- only-coordinates [response]
+(defn- only-coordinates [_]
   (todo "only-coordinates"))
 
 (defn- geocode [address]
