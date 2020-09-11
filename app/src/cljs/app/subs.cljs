@@ -27,3 +27,13 @@
   ::autosuggest-value
   (fn [db]
     (::db/autosuggest-query db)))
+
+(re-frame/reg-sub
+  ::autosuggest-error
+  (fn [db]
+    (::db/autosuggest-error db)))
+
+(re-frame/reg-sub
+  ::autosuggest-results
+  (fn [db]
+    (::db/autosuggest-results db)))

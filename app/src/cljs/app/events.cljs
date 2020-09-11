@@ -52,7 +52,9 @@
         current-time-ms ::ef/current-time-ms}
        [_ value]]
     {:db             (assoc db ::db/autosuggest-query value
-                               ::db/autosuggest-last-query-time-ms current-time-ms)
+                               ::db/autosuggest-last-query-time-ms current-time-ms
+                               ::db/autosuggest-error nil
+                               ::db/autosuggest-results [])
      :dispatch-later [{:ms       autosuggest-debounce-delay-ms
                        :dispatch [::autosuggest-query-confirmation value]}]}))
 
@@ -90,8 +92,8 @@
 (re-frame/reg-event-db
   ::suggestions-err-received
   (fn [db event-vec]
-    (println event-vec)
-    db))
+    (assoc db ::db/autosuggest-error
+              (str event-vec))))
 
 (defn- fake-journey [[num db] _]
   (comment (str "Journey from " (::db/journey-start db) " to " (::db/journey-end db) " " num))

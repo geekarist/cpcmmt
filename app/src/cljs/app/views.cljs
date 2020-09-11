@@ -58,13 +58,21 @@
     [:div.container.mt-3 (map journey-view @journeys)]))
 
 (defn autosuggest-panel []
-  (let [value (rf/subscribe [::subs/autosuggest-value])]
+  (let [query (rf/subscribe [::subs/autosuggest-value])
+        error (rf/subscribe [::subs/autosuggest-error])
+        _ (rf/subscribe [::subs/autosuggest-results])]
     [:div.container.mt-3
      [:div.form-group
       [:input.form-control
        {:type      "text"
-        :value     @value
-        :on-change #(rf/dispatch [::ev/autosuggest-query-change (-> % .-target .-value)])}]]]))
+        :value     @query
+        :on-change #(rf/dispatch [::ev/autosuggest-query-change (-> % .-target .-value)])}]]
+     (if @error
+       [:div.alert.alert-warning "Error fetching suggestions: " @error]
+       [:div.list-group
+        [:button.list-group-item.list-group-item-action "Suggestion 1"]
+        [:button.list-group-item.list-group-item-action "Suggestion 2"]
+        [:button.list-group-item.list-group-item-action "Suggestion 3"]])]))
 
 (defn main-panel []
   (let [active-panel (rf/subscribe [::subs/active-panel])]
