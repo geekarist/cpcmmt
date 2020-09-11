@@ -2,9 +2,6 @@
   (:require [re-frame.core :as re-frame]
             [ajax.core :refer [GET]]))
 
-(declare GET)
-(declare .getTime)
-
 (defn call-get-suggestions [url params on-success-event on-error-event]
   (GET url
        {:params        params
