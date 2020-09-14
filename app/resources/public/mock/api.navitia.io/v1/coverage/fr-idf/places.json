@@ -1,0 +1,53 @@
+{
+  "places": [
+    {
+      "embedded_type": "stop_area",
+      "stop_area": {
+        "id": "stop_area:RAT:SA:RDBAC",
+        "name": "Rue du Bac (Paris)",
+        "label": "Rue du Bac (Paris) / label",
+        "coord": {
+          "lon": 0.00,
+          "lat": 0.00
+        },
+        "administrative_regions": [],
+        "stop_points": []
+      },
+      "id": "stop_area:RAT:SA:RDCFB",
+      "name": "Rue du Bac (Paris)"
+    },
+    {
+      "embedded_type": "stop_area",
+      "stop_area": {
+        "id": "stop_area:RAT:SA:RDCFB",
+        "name": "Rue de la Croix Faubin (Paris)",
+        "label": "Rue de la Croix Faubin (Paris) / label",
+        "coord": {
+          "lon": 0.00,
+          "lat": 0.00
+        },
+        "administrative_regions": [],
+        "stop_points": []
+      },
+      "id": "stop_area:RAT:SA:RDCFB",
+      "name": "Rue de la Croix Faubin (Paris)"
+    },
+    {
+      "embedded_type": "stop_area",
+      "stop_area": {
+        "id": "stop_area:RAT:SA:RDRQ",
+        "name": "Rue de la Roquette (Paris)",
+        "label": "Rue de la Roquette (Paris) / label",
+        "coord": {
+          "lon": 0.00,
+          "lat": 0.00
+        },
+        "administrative_regions": [],
+        "stop_points": []
+      },
+      "id": "stop_area:RAT:SA:RDRQ",
+      "name": "Rue de la Roquette (Paris)"
+    }
+  ],
+  "links": []
+}
