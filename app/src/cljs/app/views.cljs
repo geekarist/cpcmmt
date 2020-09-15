@@ -69,10 +69,10 @@
         :on-change #(rf/dispatch [::ev/autosuggest-query-change (-> % .-target .-value)])}]]
      (if @error
        [:div.alert.alert-warning "Error fetching suggestions: " @error]
-       [:div.list-group
-        [:button.list-group-item.list-group-item-action "Suggestion 1"]
-        [:button.list-group-item.list-group-item-action "Suggestion 2"]
-        [:button.list-group-item.list-group-item-action "Suggestion 3"]])]))
+       (->> ["Suggestion 1" "Suggestion 2" "Suggestion 3"]
+            (map (fn [v] [:button.list-group-item.list-group-item-action v]))
+            (cons :div.list-group)
+            (vec)))]))
 
 (defn main-panel []
   (let [active-panel (rf/subscribe [::subs/active-panel])]
