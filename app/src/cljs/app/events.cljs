@@ -6,7 +6,8 @@
     [app.secrets :as sec]
     [goog.string :as gstr]
     [goog.string.format]
-    [app.config :as conf]))
+    [app.config :as conf]
+    [cognitect.transit :as transit]))
 
 (re-frame/reg-event-db
   ::db-initialization
@@ -84,11 +85,17 @@
     {:db (assoc db ::db/journey-end
                    (str "End with map: " coeffects-map " and events: " event-vector))}))
 
+(def reader (transit/reader :json))
+
 (re-frame/reg-event-db
   ::suggestions-resp-received
   (fn [db [_ resp-body]]
-    (println "Received response body:" resp-body)
-    (assoc db ::db/autosuggest-results ["s1" "s2" "s3"])))
+    (println "Received response body:" (transit/read reader resp-body))
+    (assoc db ::db/autosuggest-results
+              (->> resp-body
+                   (transit/read reader)
+                   (:places)
+                   (map #(:name %))))))
 
 (re-frame/reg-event-db
   ::suggestions-err-received
