@@ -60,7 +60,7 @@
 (defn autosuggest-panel []
   (let [query (rf/subscribe [::subs/autosuggest-value])
         error (rf/subscribe [::subs/autosuggest-error])
-        _ (rf/subscribe [::subs/autosuggest-results])]
+        results (rf/subscribe [::subs/autosuggest-results])]
     [:div.container.mt-3
      [:div.form-group
       [:input.form-control
@@ -69,7 +69,7 @@
         :on-change #(rf/dispatch [::ev/autosuggest-query-change (-> % .-target .-value)])}]]
      (if @error
        [:div.alert.alert-warning "Error fetching suggestions: " @error]
-       (->> ["Suggestion 1" "Suggestion 2" "Suggestion 3"]
+       (->> @results
             (map (fn [v] [:button.list-group-item.list-group-item-action v]))
             (cons :div.list-group)
             (vec)))]))

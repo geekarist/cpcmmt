@@ -86,9 +86,9 @@
 
 (re-frame/reg-event-db
   ::suggestions-resp-received
-  (fn [db event-vec]
-    (println event-vec)
-    db))
+  (fn [db [_ resp-body]]
+    (println "Received response body:" resp-body)
+    (assoc db ::db/autosuggest-results ["s1" "s2" "s3"])))
 
 (re-frame/reg-event-db
   ::suggestions-err-received
