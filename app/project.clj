@@ -8,8 +8,7 @@
                  [reagent "0.10.0"]
                  [re-frame "0.12.0"]
                  [me.raynes/fs "1.4.6"]
-                 [cljs-ajax "0.8.0"]
-                 [com.cognitect/transit-cljs "0.8.264"]]
+                 [cljs-ajax "0.8.0"]]
 
   :plugins [[lein-shadow "0.2.0"]
             [lein-shell "0.5.0"]]
