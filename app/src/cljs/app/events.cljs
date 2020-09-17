@@ -94,6 +94,13 @@
                    (map #(:name %))))))
 
 (re-frame/reg-event-db
+  ::autosuggest-item-selection
+  (fn [db [_ text]]
+    (assoc db ::db/autosuggest-query text
+              ::db/active-panel ::db/panel-start-end-selection
+              ::db/journey-start text)))
+
+(re-frame/reg-event-db
   ::suggestions-err-received
   (fn [db event-vec]
     (assoc db ::db/autosuggest-error

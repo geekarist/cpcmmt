@@ -57,6 +57,11 @@
   (let [journeys (rf/subscribe [::subs/journeys])]
     [:div.container.mt-3 (map journey-view @journeys)]))
 
+(defn autosuggest-button [text]
+  [:button.list-group-item.list-group-item-action
+   {:on-click #(rf/dispatch [::ev/autosuggest-item-selection text])}
+   text])
+
 (defn autosuggest-panel []
   (let [query (rf/subscribe [::subs/autosuggest-value])
         error (rf/subscribe [::subs/autosuggest-error])
@@ -70,7 +75,7 @@
      (if @error
        [:div.alert.alert-warning "Error fetching suggestions: " @error]
        (->> @results
-            (map (fn [v] [:button.list-group-item.list-group-item-action v]))
+            (map autosuggest-button)
             (cons :div.list-group)
             (vec)))]))
 
