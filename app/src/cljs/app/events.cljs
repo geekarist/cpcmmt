@@ -90,7 +90,6 @@
   (fn [db [_ resp-body]]
     (assoc db ::db/autosuggest-results
               (->> resp-body
-                   (json->clj)
                    (:places)
                    (map #(:name %))))))
 

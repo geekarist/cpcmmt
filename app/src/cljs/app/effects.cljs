@@ -4,9 +4,11 @@
 
 (defn call-get-suggestions [url params on-success-event on-error-event]
   (GET url
-       {:params        params
-        :handler       #(re-frame/dispatch [on-success-event %])
-        :error-handler #(re-frame/dispatch [on-error-event %])}))
+       {:params          params
+        :response-format :json
+        :keywords?       true
+        :handler         #(re-frame/dispatch [on-success-event %])
+        :error-handler   #(re-frame/dispatch [on-error-event %])}))
 
 (re-frame/reg-fx
   ::get-suggestions
