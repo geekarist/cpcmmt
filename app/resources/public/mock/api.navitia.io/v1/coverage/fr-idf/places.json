@@ -1,53 +1,662 @@
 {
-  "places": [
+  "feed_publishers": [
     {
-      "embedded_type": "stop_area",
-      "stop_area": {
-        "id": "stop_area:RAT:SA:RDBAC",
-        "name": "Rue du Bac (Paris)",
-        "label": "Rue du Bac (Paris) / label",
-        "coord": {
-          "lon": 0.00,
-          "lat": 0.00
-        },
-        "administrative_regions": [],
-        "stop_points": []
-      },
-      "id": "stop_area:RAT:SA:RDCFB",
-      "name": "Rue du Bac (Paris)"
+      "url": "http:\/\/bano.openstreetmap.fr\/data\/lisezmoi-bano.txt",
+      "id": "bano",
+      "license": "ODbL",
+      "name": "Base d'Adresses Nationale Ouverte"
     },
     {
-      "embedded_type": "stop_area",
-      "stop_area": {
-        "id": "stop_area:RAT:SA:RDCFB",
-        "name": "Rue de la Croix Faubin (Paris)",
-        "label": "Rue de la Croix Faubin (Paris) / label",
-        "coord": {
-          "lon": 0.00,
-          "lat": 0.00
-        },
-        "administrative_regions": [],
-        "stop_points": []
-      },
-      "id": "stop_area:RAT:SA:RDCFB",
-      "name": "Rue de la Croix Faubin (Paris)"
-    },
-    {
-      "embedded_type": "stop_area",
-      "stop_area": {
-        "id": "stop_area:RAT:SA:RDRQ",
-        "name": "Rue de la Roquette (Paris)",
-        "label": "Rue de la Roquette (Paris) / label",
-        "coord": {
-          "lon": 0.00,
-          "lat": 0.00
-        },
-        "administrative_regions": [],
-        "stop_points": []
-      },
-      "id": "stop_area:RAT:SA:RDRQ",
-      "name": "Rue de la Roquette (Paris)"
+      "url": "https:\/\/www.openstreetmap.org\/copyright",
+      "id": "osm",
+      "license": "ODbL",
+      "name": "openstreetmap"
     }
   ],
-  "links": []
+  "links": [
+    {
+      "href": "https:\/\/api.navitia.io\/v1\/coverage\/fr-idf\/addresses\/{address.id}",
+      "type": "address",
+      "rel": "addresses",
+      "templated": true
+    }
+  ],
+  "places": [
+    {
+      "embedded_type": "address",
+      "id": "2.7232275;48.3385656",
+      "quality": 0,
+      "name": "Rue des Coeurs (Bourron-Marlotte)",
+      "address": {
+        "name": "Rue des Coeurs",
+        "house_number": 0,
+        "coord": {
+          "lat": "48.3385656",
+          "lon": "2.7232275"
+        },
+        "label": "Rue des Coeurs (Bourron-Marlotte)",
+        "administrative_regions": [
+          {
+            "insee": "77048",
+            "name": "Bourron-Marlotte",
+            "level": 8,
+            "coord": {
+              "lat": "48.3408614",
+              "lon": "2.7056355"
+            },
+            "label": "Bourron-Marlotte (77780), Seine-et-Marne, \u00cele-de-France, France",
+            "id": "admin:fr:77048",
+            "zip_code": "77780"
+          },
+          {
+            "insee": "77",
+            "name": "Seine-et-Marne",
+            "level": 6,
+            "coord": {
+              "lat": "48.539927",
+              "lon": "2.6608169"
+            },
+            "label": "Seine-et-Marne, \u00cele-de-France, France",
+            "id": "admin:osm:relation:7383"
+          },
+          {
+            "insee": "11",
+            "name": "\u00cele-de-France",
+            "level": 4,
+            "coord": {
+              "lat": "48.8566969",
+              "lon": "2.3514616"
+            },
+            "label": "\u00cele-de-France, France",
+            "id": "admin:osm:relation:8649"
+          },
+          {
+            "insee": "",
+            "name": "France",
+            "level": 2,
+            "coord": {
+              "lat": "48.8566969",
+              "lon": "2.3514616"
+            },
+            "label": "France",
+            "id": "admin:osm:relation:2202162"
+          }
+        ],
+        "id": "2.7232275;48.3385656"
+      }
+    },
+    {
+      "embedded_type": "address",
+      "id": "2.710882;48.342631",
+      "quality": 0,
+      "name": "21 Rue des Grands R\u00e9ages (Bourron-Marlotte)",
+      "address": {
+        "name": "21 Rue des Grands R\u00e9ages",
+        "house_number": 21,
+        "coord": {
+          "lat": "48.342631",
+          "lon": "2.710882"
+        },
+        "label": "21 Rue des Grands R\u00e9ages (Bourron-Marlotte)",
+        "administrative_regions": [
+          {
+            "insee": "77",
+            "name": "Seine-et-Marne",
+            "level": 6,
+            "coord": {
+              "lat": "48.539927",
+              "lon": "2.6608169"
+            },
+            "label": "Seine-et-Marne, \u00cele-de-France, France",
+            "id": "admin:osm:relation:7383"
+          },
+          {
+            "insee": "11",
+            "name": "\u00cele-de-France",
+            "level": 4,
+            "coord": {
+              "lat": "48.8566969",
+              "lon": "2.3514616"
+            },
+            "label": "\u00cele-de-France, France",
+            "id": "admin:osm:relation:8649"
+          },
+          {
+            "insee": "",
+            "name": "France",
+            "level": 2,
+            "coord": {
+              "lat": "48.8566969",
+              "lon": "2.3514616"
+            },
+            "label": "France",
+            "id": "admin:osm:relation:2202162"
+          },
+          {
+            "insee": "77048",
+            "name": "Bourron-Marlotte",
+            "level": 8,
+            "coord": {
+              "lat": "48.3408614",
+              "lon": "2.7056355"
+            },
+            "label": "Bourron-Marlotte (77780), Seine-et-Marne, \u00cele-de-France, France",
+            "id": "admin:fr:77048",
+            "zip_code": "77780"
+          }
+        ],
+        "id": "2.710882;48.342631"
+      }
+    },
+    {
+      "embedded_type": "address",
+      "id": "2.700521;48.343466",
+      "quality": 0,
+      "name": "21 Rue des Mathurins (Bourron-Marlotte)",
+      "address": {
+        "name": "21 Rue des Mathurins",
+        "house_number": 21,
+        "coord": {
+          "lat": "48.343466",
+          "lon": "2.700521"
+        },
+        "label": "21 Rue des Mathurins (Bourron-Marlotte)",
+        "administrative_regions": [
+          {
+            "insee": "77",
+            "name": "Seine-et-Marne",
+            "level": 6,
+            "coord": {
+              "lat": "48.539927",
+              "lon": "2.6608169"
+            },
+            "label": "Seine-et-Marne, \u00cele-de-France, France",
+            "id": "admin:osm:relation:7383"
+          },
+          {
+            "insee": "11",
+            "name": "\u00cele-de-France",
+            "level": 4,
+            "coord": {
+              "lat": "48.8566969",
+              "lon": "2.3514616"
+            },
+            "label": "\u00cele-de-France, France",
+            "id": "admin:osm:relation:8649"
+          },
+          {
+            "insee": "",
+            "name": "France",
+            "level": 2,
+            "coord": {
+              "lat": "48.8566969",
+              "lon": "2.3514616"
+            },
+            "label": "France",
+            "id": "admin:osm:relation:2202162"
+          },
+          {
+            "insee": "77048",
+            "name": "Bourron-Marlotte",
+            "level": 8,
+            "coord": {
+              "lat": "48.3408614",
+              "lon": "2.7056355"
+            },
+            "label": "Bourron-Marlotte (77780), Seine-et-Marne, \u00cele-de-France, France",
+            "id": "admin:fr:77048",
+            "zip_code": "77780"
+          }
+        ],
+        "id": "2.700521;48.343466"
+      }
+    },
+    {
+      "embedded_type": "address",
+      "id": "2.701802;48.341525",
+      "quality": 0,
+      "name": "21 Rue Pasteur (Bourron-Marlotte)",
+      "address": {
+        "name": "21 Rue Pasteur",
+        "house_number": 21,
+        "coord": {
+          "lat": "48.341525",
+          "lon": "2.701802"
+        },
+        "label": "21 Rue Pasteur (Bourron-Marlotte)",
+        "administrative_regions": [
+          {
+            "insee": "77",
+            "name": "Seine-et-Marne",
+            "level": 6,
+            "coord": {
+              "lat": "48.539927",
+              "lon": "2.6608169"
+            },
+            "label": "Seine-et-Marne, \u00cele-de-France, France",
+            "id": "admin:osm:relation:7383"
+          },
+          {
+            "insee": "11",
+            "name": "\u00cele-de-France",
+            "level": 4,
+            "coord": {
+              "lat": "48.8566969",
+              "lon": "2.3514616"
+            },
+            "label": "\u00cele-de-France, France",
+            "id": "admin:osm:relation:8649"
+          },
+          {
+            "insee": "",
+            "name": "France",
+            "level": 2,
+            "coord": {
+              "lat": "48.8566969",
+              "lon": "2.3514616"
+            },
+            "label": "France",
+            "id": "admin:osm:relation:2202162"
+          },
+          {
+            "insee": "77048",
+            "name": "Bourron-Marlotte",
+            "level": 8,
+            "coord": {
+              "lat": "48.3408614",
+              "lon": "2.7056355"
+            },
+            "label": "Bourron-Marlotte (77780), Seine-et-Marne, \u00cele-de-France, France",
+            "id": "admin:fr:77048",
+            "zip_code": "77780"
+          }
+        ],
+        "id": "2.701802;48.341525"
+      }
+    },
+    {
+      "embedded_type": "address",
+      "id": "1.9076863;48.9638113",
+      "quality": 0,
+      "name": "Rue des Glaces Coeurs (Bouafle)",
+      "address": {
+        "name": "Rue des Glaces Coeurs",
+        "house_number": 0,
+        "coord": {
+          "lat": "48.9638113",
+          "lon": "1.9076863"
+        },
+        "label": "Rue des Glaces Coeurs (Bouafle)",
+        "administrative_regions": [
+          {
+            "insee": "78090",
+            "name": "Bouafle",
+            "level": 8,
+            "coord": {
+              "lat": "48.9644944",
+              "lon": "1.9001777"
+            },
+            "label": "Bouafle (78410), Yvelines, \u00cele-de-France, France",
+            "id": "admin:fr:78090",
+            "zip_code": "78410"
+          },
+          {
+            "insee": "78",
+            "name": "Yvelines",
+            "level": 6,
+            "coord": {
+              "lat": "48.8035403",
+              "lon": "2.1266886"
+            },
+            "label": "Yvelines, \u00cele-de-France, France",
+            "id": "admin:osm:relation:7457"
+          },
+          {
+            "insee": "11",
+            "name": "\u00cele-de-France",
+            "level": 4,
+            "coord": {
+              "lat": "48.8566969",
+              "lon": "2.3514616"
+            },
+            "label": "\u00cele-de-France, France",
+            "id": "admin:osm:relation:8649"
+          },
+          {
+            "insee": "",
+            "name": "France",
+            "level": 2,
+            "coord": {
+              "lat": "48.8566969",
+              "lon": "2.3514616"
+            },
+            "label": "France",
+            "id": "admin:osm:relation:2202162"
+          }
+        ],
+        "id": "1.9076863;48.9638113"
+      }
+    },
+    {
+      "embedded_type": "address",
+      "id": "2.6978791;48.3434151",
+      "quality": 0,
+      "name": "Rue des Bois (Bourron-Marlotte)",
+      "address": {
+        "name": "Rue des Bois",
+        "house_number": 0,
+        "coord": {
+          "lat": "48.3434151",
+          "lon": "2.6978791"
+        },
+        "label": "Rue des Bois (Bourron-Marlotte)",
+        "administrative_regions": [
+          {
+            "insee": "77048",
+            "name": "Bourron-Marlotte",
+            "level": 8,
+            "coord": {
+              "lat": "48.3408614",
+              "lon": "2.7056355"
+            },
+            "label": "Bourron-Marlotte (77780), Seine-et-Marne, \u00cele-de-France, France",
+            "id": "admin:fr:77048",
+            "zip_code": "77780"
+          },
+          {
+            "insee": "77",
+            "name": "Seine-et-Marne",
+            "level": 6,
+            "coord": {
+              "lat": "48.539927",
+              "lon": "2.6608169"
+            },
+            "label": "Seine-et-Marne, \u00cele-de-France, France",
+            "id": "admin:osm:relation:7383"
+          },
+          {
+            "insee": "11",
+            "name": "\u00cele-de-France",
+            "level": 4,
+            "coord": {
+              "lat": "48.8566969",
+              "lon": "2.3514616"
+            },
+            "label": "\u00cele-de-France, France",
+            "id": "admin:osm:relation:8649"
+          },
+          {
+            "insee": "",
+            "name": "France",
+            "level": 2,
+            "coord": {
+              "lat": "48.8566969",
+              "lon": "2.3514616"
+            },
+            "label": "France",
+            "id": "admin:osm:relation:2202162"
+          }
+        ],
+        "id": "2.6978791;48.3434151"
+      }
+    },
+    {
+      "embedded_type": "address",
+      "id": "2.7161036;48.3374067",
+      "quality": 0,
+      "name": "Rue des Poiriers (Bourron-Marlotte)",
+      "address": {
+        "name": "Rue des Poiriers",
+        "house_number": 0,
+        "coord": {
+          "lat": "48.3374067",
+          "lon": "2.7161036"
+        },
+        "label": "Rue des Poiriers (Bourron-Marlotte)",
+        "administrative_regions": [
+          {
+            "insee": "77048",
+            "name": "Bourron-Marlotte",
+            "level": 8,
+            "coord": {
+              "lat": "48.3408614",
+              "lon": "2.7056355"
+            },
+            "label": "Bourron-Marlotte (77780), Seine-et-Marne, \u00cele-de-France, France",
+            "id": "admin:fr:77048",
+            "zip_code": "77780"
+          },
+          {
+            "insee": "77",
+            "name": "Seine-et-Marne",
+            "level": 6,
+            "coord": {
+              "lat": "48.539927",
+              "lon": "2.6608169"
+            },
+            "label": "Seine-et-Marne, \u00cele-de-France, France",
+            "id": "admin:osm:relation:7383"
+          },
+          {
+            "insee": "11",
+            "name": "\u00cele-de-France",
+            "level": 4,
+            "coord": {
+              "lat": "48.8566969",
+              "lon": "2.3514616"
+            },
+            "label": "\u00cele-de-France, France",
+            "id": "admin:osm:relation:8649"
+          },
+          {
+            "insee": "",
+            "name": "France",
+            "level": 2,
+            "coord": {
+              "lat": "48.8566969",
+              "lon": "2.3514616"
+            },
+            "label": "France",
+            "id": "admin:osm:relation:2202162"
+          }
+        ],
+        "id": "2.7161036;48.3374067"
+      }
+    },
+    {
+      "embedded_type": "address",
+      "id": "2.7032113;48.3378614",
+      "quality": 0,
+      "name": "Rue des Foug\u00e8res (Bourron-Marlotte)",
+      "address": {
+        "name": "Rue des Foug\u00e8res",
+        "house_number": 0,
+        "coord": {
+          "lat": "48.3378614",
+          "lon": "2.7032113"
+        },
+        "label": "Rue des Foug\u00e8res (Bourron-Marlotte)",
+        "administrative_regions": [
+          {
+            "insee": "77048",
+            "name": "Bourron-Marlotte",
+            "level": 8,
+            "coord": {
+              "lat": "48.3408614",
+              "lon": "2.7056355"
+            },
+            "label": "Bourron-Marlotte (77780), Seine-et-Marne, \u00cele-de-France, France",
+            "id": "admin:fr:77048",
+            "zip_code": "77780"
+          },
+          {
+            "insee": "77",
+            "name": "Seine-et-Marne",
+            "level": 6,
+            "coord": {
+              "lat": "48.539927",
+              "lon": "2.6608169"
+            },
+            "label": "Seine-et-Marne, \u00cele-de-France, France",
+            "id": "admin:osm:relation:7383"
+          },
+          {
+            "insee": "11",
+            "name": "\u00cele-de-France",
+            "level": 4,
+            "coord": {
+              "lat": "48.8566969",
+              "lon": "2.3514616"
+            },
+            "label": "\u00cele-de-France, France",
+            "id": "admin:osm:relation:8649"
+          },
+          {
+            "insee": "",
+            "name": "France",
+            "level": 2,
+            "coord": {
+              "lat": "48.8566969",
+              "lon": "2.3514616"
+            },
+            "label": "France",
+            "id": "admin:osm:relation:2202162"
+          }
+        ],
+        "id": "2.7032113;48.3378614"
+      }
+    },
+    {
+      "embedded_type": "address",
+      "id": "2.7004206;48.3459564",
+      "quality": 0,
+      "name": "Rue des 4 Chemins (Bourron-Marlotte)",
+      "address": {
+        "name": "Rue des 4 Chemins",
+        "house_number": 0,
+        "coord": {
+          "lat": "48.3459564",
+          "lon": "2.7004206"
+        },
+        "label": "Rue des 4 Chemins (Bourron-Marlotte)",
+        "administrative_regions": [
+          {
+            "insee": "77048",
+            "name": "Bourron-Marlotte",
+            "level": 8,
+            "coord": {
+              "lat": "48.3408614",
+              "lon": "2.7056355"
+            },
+            "label": "Bourron-Marlotte (77780), Seine-et-Marne, \u00cele-de-France, France",
+            "id": "admin:fr:77048",
+            "zip_code": "77780"
+          },
+          {
+            "insee": "77",
+            "name": "Seine-et-Marne",
+            "level": 6,
+            "coord": {
+              "lat": "48.539927",
+              "lon": "2.6608169"
+            },
+            "label": "Seine-et-Marne, \u00cele-de-France, France",
+            "id": "admin:osm:relation:7383"
+          },
+          {
+            "insee": "11",
+            "name": "\u00cele-de-France",
+            "level": 4,
+            "coord": {
+              "lat": "48.8566969",
+              "lon": "2.3514616"
+            },
+            "label": "\u00cele-de-France, France",
+            "id": "admin:osm:relation:8649"
+          },
+          {
+            "insee": "",
+            "name": "France",
+            "level": 2,
+            "coord": {
+              "lat": "48.8566969",
+              "lon": "2.3514616"
+            },
+            "label": "France",
+            "id": "admin:osm:relation:2202162"
+          }
+        ],
+        "id": "2.7004206;48.3459564"
+      }
+    },
+    {
+      "embedded_type": "address",
+      "id": "2.7084372;48.3423681",
+      "quality": 0,
+      "name": "Rue des Grands R\u00e9ages (Bourron-Marlotte)",
+      "address": {
+        "name": "Rue des Grands R\u00e9ages",
+        "house_number": 0,
+        "coord": {
+          "lat": "48.3423681",
+          "lon": "2.7084372"
+        },
+        "label": "Rue des Grands R\u00e9ages (Bourron-Marlotte)",
+        "administrative_regions": [
+          {
+            "insee": "77048",
+            "name": "Bourron-Marlotte",
+            "level": 8,
+            "coord": {
+              "lat": "48.3408614",
+              "lon": "2.7056355"
+            },
+            "label": "Bourron-Marlotte (77780), Seine-et-Marne, \u00cele-de-France, France",
+            "id": "admin:fr:77048",
+            "zip_code": "77780"
+          },
+          {
+            "insee": "77",
+            "name": "Seine-et-Marne",
+            "level": 6,
+            "coord": {
+              "lat": "48.539927",
+              "lon": "2.6608169"
+            },
+            "label": "Seine-et-Marne, \u00cele-de-France, France",
+            "id": "admin:osm:relation:7383"
+          },
+          {
+            "insee": "11",
+            "name": "\u00cele-de-France",
+            "level": 4,
+            "coord": {
+              "lat": "48.8566969",
+              "lon": "2.3514616"
+            },
+            "label": "\u00cele-de-France, France",
+            "id": "admin:osm:relation:8649"
+          },
+          {
+            "insee": "",
+            "name": "France",
+            "level": 2,
+            "coord": {
+              "lat": "48.8566969",
+              "lon": "2.3514616"
+            },
+            "label": "France",
+            "id": "admin:osm:relation:2202162"
+          }
+        ],
+        "id": "2.7084372;48.3423681"
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "message": "This service is under construction. You can help through github.com\/CanalTP\/navitia",
+      "id": "beta_endpoint"
+    }
+  ]
 }
