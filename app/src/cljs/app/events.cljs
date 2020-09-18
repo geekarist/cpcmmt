@@ -127,62 +127,6 @@
    ::start-date "07:10" ::start-station "Montigny-sur-Loing"
    ::end-date   "08:34" ::end-station "Paris Gare de Lyon"})
 
-(defn- only-start-and-end [db]
-  [(::db/journey-start db)
-   (::db/journey-end db)])
-
-(defn- todo [desc & args]
-  (println "To do:" desc args))
-
-(defn- to-geocode-request [_]
-  (todo "to-geocode-request"))
-
-(defn- send-to-ws [_]
-  (todo "send-to-ws"))
-
-(defn- only-coordinates [_]
-  (todo "only-coordinates"))
-
-(defn- geocode [address]
-  (println "Geocoding" address)
-  (-> address
-      (to-geocode-request)
-      (send-to-ws)
-      (only-coordinates)))
-
-(defn- to-url-params [start-and-end]
-  (todo "to-url-params")
-  start-and-end)
-
-(defn- journeys-request-url [start-and-end-params]
-  (todo "journeys-request-url") start-and-end-params)
-
-(defn- journeys-request-obj [request-url]
-  {:method :get
-   :url    request-url})
-
-(defn- make-journeys-request
-  "Build a request map that can be sent to the journeys web service to fetch journeys.
-  Makes synchronous calls to a web service ⇒ has to run on a backaground thread."
-  [db]
-  (->> db
-       (only-start-and-end)                                 ; Extract ::db/journey-start and ::db/journey-end
-       (map geocode)                                        ; Find coordinates of start and end
-       (map to-url-params)                                  ; Convert coordinates to URL params
-       (journeys-request-url)                               ; Build URL
-       ;(journeys-request-obj)                               ; Build request map
-       ))
-
-(comment
-  (in-ns 'app.events)
-  (make-journeys-request {::db/journey-start "a"
-                          ::db/journey-end   "b"})
-  (only-start-and-end {::db/journey-start "a"
-                       ::db/journey-end   "b"})
-  (->> ["a" "b"]
-       (map geocode))
-  (geocode "a"))
-
 (defn- handle-get-journeys [db [_ _]]
   (as-> [1 2 3 4 5 6 7 8 9] v
         (map (fn [num] [num db]) v)                         ; `(map #([% db]) v)` does not work 🤔 - see https://stackoverflow.com/a/13206291/1665730
