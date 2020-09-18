@@ -19,19 +19,19 @@
   (fn [db [_ value]]
     (assoc db ::db/active-panel value)))
 
-(re-frame/reg-event-db
-  ::navigation-to-autosuggest-start
+(defn nav-to-autosuggest-handler [field-kw]
   (fn [db [_ value]]
     (assoc db ::db/active-panel ::db/panel-autosuggest
-              ::db/autosuggest-field ::db/autosuggest-field-start
+              ::db/autosuggest-field field-kw
               ::db/autosuggest-query value)))
 
 (re-frame/reg-event-db
+  ::navigation-to-autosuggest-start
+  (nav-to-autosuggest-handler ::db/autosuggest-field-start))
+
+(re-frame/reg-event-db
   ::navigation-to-autosuggest-end
-  (fn [db [_ value]]
-    (assoc db ::db/active-panel ::db/panel-autosuggest
-              ::db/autosuggest-field ::db/autosuggest-field-end
-              ::db/autosuggest-query value)))
+  (nav-to-autosuggest-handler ::db/autosuggest-field-end))
 
 (def navitia-coverage "fr-idf")
 
@@ -101,7 +101,7 @@
                    (:places)
                    (map #(:name %))))))
 
-(defn journey-start-or-end-kw [db]
+(defn journey-start-or-end [db]
   (if (= ::db/autosuggest-field-start
          (::db/autosuggest-field db))
     ::db/journey-start
@@ -112,7 +112,7 @@
   (fn [db [_ text]]
     (assoc db ::db/autosuggest-query text
               ::db/active-panel ::db/panel-start-end-selection
-              (journey-start-or-end-kw db) text)))
+              (journey-start-or-end db) text)))
 
 (re-frame/reg-event-db
   ::suggestions-err-received
