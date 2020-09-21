@@ -20,16 +20,18 @@
     (assoc db ::db/active-panel value)))
 
 (defn nav-to-autosuggest-handler [field-kw]
-  (fn [db [_ value]]
-    (assoc db ::db/active-panel ::db/panel-autosuggest
-              ::db/autosuggest-field field-kw
-              ::db/autosuggest-query value)))
+  (fn [{:keys [db]} #_(Coeffects)
+       [_ query element-id-to-focus]  #_(Event)]
+    {:db                   (assoc db ::db/active-panel ::db/panel-autosuggest
+                                     ::db/autosuggest-field field-kw
+                                     ::db/autosuggest-query query)
+     ::ef/focus-to-element element-id-to-focus}))
 
-(re-frame/reg-event-db
+(re-frame/reg-event-fx
   ::navigation-to-autosuggest-start
   (nav-to-autosuggest-handler ::db/autosuggest-field-start))
 
-(re-frame/reg-event-db
+(re-frame/reg-event-fx
   ::navigation-to-autosuggest-end
   (nav-to-autosuggest-handler ::db/autosuggest-field-end))
 

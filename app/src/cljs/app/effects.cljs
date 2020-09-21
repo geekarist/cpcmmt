@@ -26,6 +26,6 @@
 (re-frame/reg-fx
   ::focus-to-element
   (fn [element-id]
-    (-> js/document
-        (.getElementById element-id)
-        (.focus))))
+    (reagent.core/after-render #(-> js/document
+                                    (.getElementById element-id)
+                                    (.focus)))))
