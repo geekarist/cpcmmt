@@ -107,12 +107,13 @@
     ::db/journey-start
     ::db/journey-end))
 
-(re-frame/reg-event-db
+(re-frame/reg-event-fx
   ::autosuggest-item-selection
-  (fn [db [_ text]]
-    (assoc db ::db/autosuggest-query text
-              ::db/active-panel ::db/panel-start-end-selection
-              (journey-start-or-end db) text)))
+  (fn [{:keys [db]}
+       [_ text]]
+    {:db (assoc db ::db/autosuggest-query text
+                   ::db/active-panel ::db/panel-start-end-selection
+                   (journey-start-or-end db) text)}))
 
 (re-frame/reg-event-db
   ::suggestions-err-received
