@@ -22,3 +22,10 @@
   ::get-current-time
   (fn [coeffects _]
     (assoc coeffects ::current-time-ms (.getTime (js/Date.)))))
+
+(re-frame/reg-fx
+  ::focus-to-element
+  (fn [element-id]
+    (-> js/document
+        (.getElementById element-id)
+        (.focus))))
