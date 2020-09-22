@@ -115,6 +115,7 @@
        [_ text]]
     {:db (assoc db ::db/autosuggest-query text
                    ::db/active-panel ::db/panel-start-end-selection
+                   ::db/autosuggest-results []
                    (journey-start-or-end db) text)}))
 
 (re-frame/reg-event-db

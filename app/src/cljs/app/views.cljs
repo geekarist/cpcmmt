@@ -22,18 +22,20 @@
         :placeholder "Start"
         :value       @journey-start
         :on-change   #(rf/dispatch [::ev/journey-start-change (-> % .-target .-value)])
-        :on-focus    #(rf/dispatch [::ev/navigation-to-autosuggest-start
-                                    (-> % .-target .-value)
-                                    "autosuggest-query-field"])}]]
+        :on-focus    #(do (rf/dispatch [::ev/autosuggest-query-change (-> % .-target .-value)])
+                          (rf/dispatch [::ev/navigation-to-autosuggest-start
+                                        (-> % .-target .-value)
+                                        "autosuggest-query-field"]))}]]
      [:div.form-group
       [:input.form-control
        {:type        "text"
         :placeholder "End"
         :value       @journey-end
         :on-change   #(rf/dispatch [::ev/journey-end-change (-> % .-target .-value)])
-        :on-focus    #(rf/dispatch [::ev/navigation-to-autosuggest-end
-                                    (-> % .-target .-value)
-                                    "autosuggest-query-field"])}]]
+        :on-focus    #(do (rf/dispatch [::ev/autosuggest-query-change (-> % .-target .-value)])
+                          (rf/dispatch [::ev/navigation-to-autosuggest-end
+                                        (-> % .-target .-value)
+                                        "autosuggest-query-field"]))}]]
      [:button.btn.btn-primary {:on-click #(rf/dispatch [::ev/journey-search-submission])} "Go!"]]))
 
 (defn journey-view [journey]
