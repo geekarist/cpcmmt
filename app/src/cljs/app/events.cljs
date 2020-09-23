@@ -137,7 +137,8 @@
         (map fake-journey v)
         (assoc db ::db/journeys v)
         (assoc v ::db/active-panel ::db/panel-journeys)
-        {:db v}))
+        {:db               v
+         ::ef/get-journeys [::db/journey-start ::db/journey-end]}))
 
 (re-frame/reg-event-fx ::journey-search-submission handle-get-journeys)
 
