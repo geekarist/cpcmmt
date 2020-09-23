@@ -131,14 +131,15 @@
    ::start-date "07:10" ::start-station "Montigny-sur-Loing"
    ::end-date   "08:34" ::end-station "Paris Gare de Lyon"})
 
-(defn- handle-get-journeys [db [_ _]]
+(defn- handle-get-journeys [{:keys [db]} _]
   (as-> [1 2 3 4 5 6 7 8 9] v
         (map (fn [num] [num db]) v)                         ; `(map #([% db]) v)` does not work 🤔 - see https://stackoverflow.com/a/13206291/1665730
         (map fake-journey v)
         (assoc db ::db/journeys v)
-        (assoc v ::db/active-panel ::db/panel-journeys)))
+        (assoc v ::db/active-panel ::db/panel-journeys)
+        {:db v}))
 
-(re-frame/reg-event-db ::journey-search-submission handle-get-journeys)
+(re-frame/reg-event-fx ::journey-search-submission handle-get-journeys)
 
 (comment
   (in-ns 'app.events)
