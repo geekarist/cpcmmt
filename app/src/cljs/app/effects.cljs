@@ -2,7 +2,7 @@
   (:require [re-frame.core :as re-frame]
             [ajax.core :refer [GET]]))
 
-(defn call-get-suggestions [url params on-success-event on-error-event]
+(defn call-get [url params on-success-event on-error-event]
   (GET url
        {:params          params
         :response-format :json
@@ -11,12 +11,12 @@
         :error-handler   #(re-frame/dispatch [on-error-event %])}))
 
 (re-frame/reg-fx
-  ::get-suggestions
+  ::get-anything
   (fn [request]
-    (call-get-suggestions (:url request)
-                          (:params request)
-                          (:on-success request)
-                          (:on-error request))))
+    (call-get (:url request)
+              (:params request)
+              (:on-success request)
+              (:on-error request))))
 
 (re-frame/reg-cofx
   ::get-current-time
