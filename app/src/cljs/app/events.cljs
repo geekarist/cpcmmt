@@ -49,7 +49,7 @@
              (>= current-time-ms
                  (+ (::db/autosuggest-last-query-time-ms db)
                     autosuggest-debounce-delay-ms)))
-      {::ef/get-suggestions
+      {::ef/get-anything
        {:url        (gstr/format (str conf/navitia-base-url "/v1/coverage/%s/places") navitia-coverage)
         :params     {:q               value
                      :key             sec/navitia-api-key
