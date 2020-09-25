@@ -137,12 +137,17 @@
         (map fake-journey v)
         (assoc db ::db/journeys v)
         (assoc v ::db/active-panel ::db/panel-journeys)
-        {:db               v
-         ::ef/get-anything {:url        (gstr/format (str conf/navitia-base-url "/v1/coverage/%s/journeys") navitia-coverage)
-                            :params     {:key             sec/navitia-api-key
-                                         :disable_geojson "true"}
-                            :on-success ::journeys-resp-received
-                            :on-error   ::journeys-err-received}}))
+        {:db v
+         ::ef/get-anything
+             {:url        (gstr/format "%s/v1/coverage/%s/journeys"
+                                       conf/navitia-base-url
+                                       navitia-coverage)
+              :params     {:from            "todo-res-id-1"
+                           :to              "todo-res-id-2"
+                           :key             sec/navitia-api-key
+                           :disable_geojson "true"}
+              :on-success ::journeys-resp-received
+              :on-error   ::journeys-err-received}}))
 
 (re-frame/reg-event-fx ::journey-search-submission handle-get-journeys)
 
