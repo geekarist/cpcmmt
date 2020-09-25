@@ -132,22 +132,26 @@
    ::end-date   "08:34" ::end-station "Paris Gare de Lyon"})
 
 (defn- handle-get-journeys [{:keys [db]} _]
-  (as-> [1 2 3 4 5 6 7 8 9] v
-        (map (fn [num] [num db]) v)                         ; `(map #([% db]) v)` does not work 🤔 - see https://stackoverflow.com/a/13206291/1665730
-        (map fake-journey v)
-        (assoc db ::db/journeys v)
-        (assoc v ::db/active-panel ::db/panel-journeys)
-        {:db v
-         ::ef/get-anything
-             {:url        (gstr/format "%s/v1/coverage/%s/journeys"
-                                       conf/navitia-base-url
-                                       navitia-coverage)
-              :params     {:from            "todo-res-id-1"
-                           :to              "todo-res-id-2"
-                           :key             sec/navitia-api-key
-                           :disable_geojson "true"}
-              :on-success ::journeys-resp-received
-              :on-error   ::journeys-err-received}}))
+  ;(as-> [1 2 3 4 5 6 7 8 9] v
+  ;(map (fn [num] [num db]) v)                         ; `(map #([% db]) v)` does not work 🤔 - see https://stackoverflow.com/a/13206291/1665730
+  ;(map fake-journey v)
+  ;(assoc db ::db/journeys v)
+  {:db (assoc db ::db/active-panel ::db/panel-journeys)
+   ::ef/get-anything
+       {:url        (gstr/format "%s/v1/coverage/%s/journeys"
+                                 conf/navitia-base-url
+                                 navitia-coverage)
+        :params     {:from            "todo-res-id-1"
+                     :to              "todo-res-id-2"
+                     :key             sec/navitia-api-key
+                     :disable_geojson "true"}
+        :on-success ::journeys-resp-received
+        :on-error   ::journeys-err-received}})              ;)
+
+(re-frame/reg-event-db
+  ::journeys-err-received
+  (fn [db [_ resp]]
+    (assoc db ::db/journeys-error resp)))
 
 (re-frame/reg-event-fx ::journey-search-submission handle-get-journeys)
 

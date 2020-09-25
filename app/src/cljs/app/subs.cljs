@@ -14,6 +14,11 @@
     (::db/journeys db)))
 
 (re-frame/reg-sub
+  ::journeys-error
+  (fn [db]
+    (::db/journeys-error db)))
+
+(re-frame/reg-sub
   ::journey-start
   (fn [db]
     (::db/journey-start db)))
