@@ -141,8 +141,8 @@
        {:url        (gstr/format "%s/v1/coverage/%s/journeys"
                                  conf/navitia-base-url
                                  navitia-coverage)
-        :params     {:from            "todo-res-id-1"
-                     :to              "todo-res-id-2"
+        :params     {:from            ::db/journey-start-id
+                     :to              ::db/journey-end-id
                      :key             sec/navitia-api-key
                      :disable_geojson "true"}
         :on-success ::journeys-resp-received
@@ -151,7 +151,30 @@
 (re-frame/reg-event-db
   ::journeys-err-received
   (fn [db [_ resp]]
-    (assoc db ::db/journeys-error resp)))
+    (assoc db ::db/journeys-error resp
+              ::db/journeys [])))
+
+(defn journey-resp->item [journey-resp]
+  {::segments   ["Walk" "R" "14"]
+   ::duration   (:duration journey-resp)
+   ::start-date "07:10" ::start-station (-> journey-resp
+                                            (:sections)
+                                            (first)
+                                            (:from)
+                                            (:name))
+   ::end-date   "08:34" ::end-station (-> journey-resp
+                                          (:sections)
+                                          (last)
+                                          (:to)
+                                          (:name))})
+
+(re-frame/reg-event-fx
+  ::journeys-resp-received
+  (fn [{:keys [db]} [_ resp]]
+    {:db (assoc db ::db/journeys-error nil
+                   ::db/journeys (->> resp
+                                      (:journeys)
+                                      (map journey-resp->item)))}))
 
 (re-frame/reg-event-fx ::journey-search-submission handle-get-journeys)
 

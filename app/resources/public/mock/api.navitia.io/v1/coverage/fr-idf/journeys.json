@@ -1,0 +1,205 @@
+{
+  "tickets": [],
+  "links": [],
+  "journeys": [
+    {
+      "fare": {},
+      "status": "",
+      "tags": [],
+      "type": "comfort",
+      "nb_transfers": 0,
+      "duration": 2671,
+      "requested_date_time": "20160613T133748",
+      "departure_date_time": "20160613T133830",
+      "arrival_date_time": "20160613T142301",
+      "calendars": [],
+      "co2_emission": {
+        "unit": "gEC",
+        "value": 24.642
+      },
+      "sections": [
+        {
+          "from": {
+            "name": "Rue Abel"
+          },
+          "to": {
+            "name": "Bercy (Paris)"
+          },
+          "arrival_date_time": "20160613T135400",
+          "departure_date_time": "20160613T133830",
+          "duration": 930,
+          "type": "street_network",
+          "mode": "walking",
+          "geojson": {},
+          "path": [],
+          "links": []
+        },
+        {
+          "from": {
+            "name": "Bercy (Paris)"
+          },
+          "to": {
+            "name": "Bir-Hakeim Tour Eiffel (Paris)"
+          },
+          "type": "public_transport",
+          "display_informations": {
+            "direction": "Charles de Gaulle — Étoile (Paris)",
+            "code": "6",
+            "color": "79BB92",
+            "physical_mode": "M?tro",
+            "headsign": "Charles de Gaulle Etoile",
+            "commercial_mode": "Metro",
+            "label": "6",
+            "text_color": "000000",
+            "network": "RATP"
+          },
+          "departure_date_time": "20160613T135400",
+          "arrival_date_time": "20160613T141500",
+          "base_arrival_date_time": "20160613T141500",
+          "base_departure_date_time": "20160613T135400",
+          "duration": 1260,
+          "additional_informations": [
+            "regular"
+          ],
+          "co2_emission": {
+            "unit": "gEC",
+            "value": 24.642
+          },
+          "geojson": {},
+          "stop_date_times": [
+            {
+              "stop_point": {
+                "label": "Bercy (Paris)"
+              },
+              "arrival_date_time": "20160613T135400",
+              "departure_date_time": "20160613T135400",
+              "base_arrival_date_time": "20160613T135400",
+              "base_departure_date_time": "20160613T135400"
+            },
+            {}
+          ]
+        },
+        {
+          "from": {
+            "name": "Bir-Hakeim Tour Eiffel (Paris)"
+          },
+          "to": {
+            "name": "Allée des Refuzniks"
+          },
+          "arrival_date_time": "20160613T142301",
+          "departure_date_time": "20160613T141500",
+          "duration": 481,
+          "type": "street_network",
+          "mode": "walking",
+          "geojson": {},
+          "path": []
+        }
+      ]
+    },
+    {
+      "fare": {},
+      "status": "",
+      "tags": [],
+      "type": "comfort",
+      "nb_transfers": 0,
+      "duration": 1361,
+      "requested_date_time": "20160613T133748",
+      "departure_date_time": "20160613T133830",
+      "arrival_date_time": "20160613T142301",
+      "calendars": [],
+      "co2_emission": {
+        "unit": "gEC",
+        "value": 24.642
+      },
+      "sections": [
+        {
+          "from": {
+            "name": "Rue Bebel"
+          },
+          "to": {
+            "name": "Bercy (Paris)"
+          },
+          "arrival_date_time": "20160613T135400",
+          "departure_date_time": "20160613T133830",
+          "duration": 930,
+          "type": "street_network",
+          "mode": "walking",
+          "geojson": {},
+          "path": [],
+          "links": []
+        },
+        {
+          "from": {
+            "name": "Bercy (Paris)"
+          },
+          "to": {
+            "name": "Bir-Hakeim Tour Eiffel (Paris)"
+          },
+          "type": "public_transport",
+          "display_informations": {
+            "direction": "Charles de Gaulle — Étoile (Paris)",
+            "code": "6",
+            "color": "79BB92",
+            "physical_mode": "M?tro",
+            "headsign": "Charles de Gaulle Etoile",
+            "commercial_mode": "Metro",
+            "label": "6",
+            "text_color": "000000",
+            "network": "RATP"
+          },
+          "departure_date_time": "20160613T135400",
+          "arrival_date_time": "20160613T141500",
+          "base_arrival_date_time": "20160613T141500",
+          "base_departure_date_time": "20160613T135400",
+          "duration": 1260,
+          "additional_informations": [
+            "regular"
+          ],
+          "co2_emission": {
+            "unit": "gEC",
+            "value": 24.642
+          },
+          "geojson": {},
+          "stop_date_times": [
+            {
+              "stop_point": {
+                "label": "Bercy (Paris)"
+              },
+              "arrival_date_time": "20160613T135400",
+              "departure_date_time": "20160613T135400",
+              "base_arrival_date_time": "20160613T135400",
+              "base_departure_date_time": "20160613T135400"
+            },
+            {}
+          ]
+        },
+        {
+          "from": {
+            "name": "Bir-Hakeim Tour Eiffel (Paris)"
+          },
+          "to": {
+            "name": "Allée des Spoutniks"
+          },
+          "arrival_date_time": "20160613T142301",
+          "departure_date_time": "20160613T141500",
+          "duration": 481,
+          "type": "street_network",
+          "mode": "walking",
+          "geojson": {},
+          "path": []
+        }
+      ]
+    }
+  ],
+  "disruptions": [],
+  "notes": [],
+  "feed_publishers": [
+    {
+      "url": "",
+      "id": "fr-idf",
+      "license": "",
+      "name": ""
+    }
+  ],
+  "exceptions": []
+}
