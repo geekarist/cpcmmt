@@ -14,6 +14,8 @@
   (fn [_ _]
     db/default-db))
 
+; App
+
 (re-frame/reg-event-db
   ::navigation-to
   (fn [db [_ value]]
@@ -38,6 +40,8 @@
 (def navitia-coverage "fr-idf")
 
 (def autosuggest-debounce-delay-ms 1000)
+
+; Autosuggest
 
 (re-frame/reg-event-fx
   ::autosuggest-query-confirmation
@@ -70,6 +74,8 @@
      :dispatch-later [{:ms       autosuggest-debounce-delay-ms
                        :dispatch [::autosuggest-query-confirmation value]}]}))
 
+; Journeys
+
 (re-frame/reg-event-db
   ::journey-start-change
   (fn [db [_ value]]
@@ -94,6 +100,8 @@
        event-vector]
     {:db (assoc db ::db/journey-end
                    (str "End with map: " coeffects-map " and events: " event-vector))}))
+
+; Autosuggest
 
 (re-frame/reg-event-db
   ::suggestions-resp-received
@@ -123,6 +131,8 @@
   (fn [db event-vec]
     (assoc db ::db/autosuggest-error
               (str event-vec))))
+
+; Journeys
 
 (defn- fake-journey [[num db] _]
   (comment (str "Journey from " (::db/journey-start db) " to " (::db/journey-end db) " " num))

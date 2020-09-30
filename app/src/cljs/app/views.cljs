@@ -6,11 +6,15 @@
     [clojure.string :as str]
     [app.db :as db]))
 
+; Home
+
 (defn home-panel []
   [:div.container
    [:button.btn.btn-primary.mt-3
     {:on-click #(rf/dispatch [::ev/navigation-to ::db/panel-start-end-selection])}
     "Where to?"]])
+
+; Start/end selection
 
 (defn start-end-selection-panel []
   (let [journey-start (rf/subscribe [::subs/journey-start])
@@ -38,6 +42,8 @@
                                         "autosuggest-query-field"]))}]]
      [:button.btn.btn-primary {:on-click #(rf/dispatch [::ev/journey-search-submission])} "Go!"]]))
 
+; Journeys
+
 (defn journey-view [journey]
   [:div.card.mb-3 {:key journey}
    [:div.card-body.pl-2.pr-2
@@ -62,6 +68,8 @@
       [:div.alert.alert-warning "Error fetching journeys: " (str @error)]
       [:div.container.mt-3 (map journey-view @journeys)])))
 
+; Autosuggest
+
 (defn autosuggest-button [text]
   [:button.list-group-item.list-group-item-action
    {:on-click #(rf/dispatch [::ev/autosuggest-item-selection text])}
@@ -83,6 +91,8 @@
             (map autosuggest-button)
             (cons :div.list-group)
             (vec)))]))
+
+; App
 
 (defn main-panel []
   (let [active-panel (rf/subscribe [::subs/active-panel])]

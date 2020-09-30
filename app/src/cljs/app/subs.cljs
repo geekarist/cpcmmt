@@ -3,10 +3,14 @@
     [re-frame.core :as re-frame]
     [app.db :as db]))
 
+; App
+
 (re-frame/reg-sub
   ::active-panel
   (fn [db]
     (::db/active-panel db)))
+
+; Journeys
 
 (re-frame/reg-sub
   ::journeys
@@ -27,6 +31,8 @@
   ::journey-end
   (fn [db]
     (::db/journey-end db)))
+
+; Autosuggest
 
 (re-frame/reg-sub
   ::autosuggest-value
