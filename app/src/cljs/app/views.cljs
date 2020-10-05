@@ -70,27 +70,31 @@
 
 ; Autosuggest
 
-(defn autosuggest-button [text]
+(defn autosuggest-button [on-click text]
   [:button.list-group-item.list-group-item-action
-   {:on-click #(rf/dispatch [::ev/autosuggest-item-selection text])}
+   {:on-click #(on-click text)}
    text])
 
-(defn autosuggest-panel []
-  (let [query (rf/subscribe [::subs/autosuggest-value])
-        error (rf/subscribe [::subs/autosuggest-error])
+(defn autosuggest-component [query on-suggestion-selected]
+  (let [error (rf/subscribe [::subs/autosuggest-error])
         results (rf/subscribe [::subs/autosuggest-results])]
     [:div.container.mt-3
      [:div.form-group
       [:input#autosuggest-query-field.form-control
        {:type      "text"
-        :value     @query
+        :value     query
         :on-change #(rf/dispatch [::ev/autosuggest-query-change (-> % .-target .-value)])}]]
      (if @error
        [:div.alert.alert-warning "Error fetching suggestions: " @error]
        (->> @results
-            (map autosuggest-button)
+            (map (partial autosuggest-button on-suggestion-selected))
             (cons :div.list-group)
             (vec)))]))
+
+(defn autosuggest-panel []
+  (let [query @(rf/subscribe [::subs/autosuggest-value])
+        on-suggestion-selected #(do (println "Yo" %) (rf/dispatch [::ev/autosuggest-item-selection %]))]
+    [autosuggest-component query on-suggestion-selected]))
 
 ; App
 
