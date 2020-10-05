@@ -93,7 +93,7 @@
 
 (defn autosuggest-panel []
   (let [query @(rf/subscribe [::subs/autosuggest-value])
-        on-suggestion-selected #(do (println "Yo" %) (rf/dispatch [::ev/autosuggest-item-selection %]))]
+        on-suggestion-selected #(rf/dispatch [::ev/autosuggest-item-selection %])]
     [autosuggest-component query on-suggestion-selected]))
 
 ; App
