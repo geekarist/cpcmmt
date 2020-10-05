@@ -44,7 +44,7 @@ you.
       - Not tracked in source control; see [`.gitignore`](.gitignore)
 * [`src/cljs/app/`](src/cljs/app/): SPA source files (ClojureScript,
 [re-frame](https://github.com/Day8/re-frame))
-  - [`core.cljs`](src/cljs/app/core.cljs): contains the SPA entry point, `init`
+  - [`main.cljs`](src/cljs/app/main.cljs): contains the SPA entry point, `init`
 
 ### Editor/IDE
 
@@ -169,7 +169,7 @@ lein run -m shadow.cljs.devtools.cli <action> app
 ```
 ### Debug Logging
 
-The `debug?` variable in [`config.cljs`](src/cljs/app/config.cljs) defaults to `true` in
+The `debug?` variable in [`config.cljs`](src/cljs/common/config.cljs) defaults to `true` in
 [`dev`](#running-the-app) builds, and `false` in [`prod`](#production) builds.
 
 Use `debug?` for logging or other tasks that should run only on `dev` builds:

@@ -2,12 +2,12 @@
   (:require
     [re-frame.core :as re-frame]
     [app.db :as db]
-    [app.effects :as ef]
-    [app.secrets :as sec]
     [goog.string :as gstr]
     [goog.string.format]
-    [app.config :as conf]
-    [app.utils :refer [json->clj]]))
+    [app.utils :refer [json->clj]]
+    [common.effects :as ef]
+    [common.config :as conf]
+    [common.secrets :as sec]))
 
 (re-frame/reg-event-db
   ::db-initialization
@@ -26,7 +26,7 @@
        [_ query element-id-to-focus]  #_(Event)]
     {:db                   (assoc db ::db/active-panel ::db/panel-autosuggest
                                      ::db/autosuggest-field field-kw
-                                     ::db/autosuggest-query query)
+                                     ::db/autosuggest-initial-query query)
      ::ef/focus-to-element element-id-to-focus}))
 
 (re-frame/reg-event-fx
@@ -36,43 +36,6 @@
 (re-frame/reg-event-fx
   ::navigation-to-autosuggest-end
   (nav-to-autosuggest-handler ::db/autosuggest-field-end))
-
-(def navitia-coverage "fr-idf")
-
-(def autosuggest-debounce-delay-ms 1000)
-
-; Autosuggest
-
-(re-frame/reg-event-fx
-  ::autosuggest-query-confirmation
-  [(re-frame/inject-cofx ::ef/get-current-time)]
-  (fn [{db              :db
-        current-time-ms ::ef/current-time-ms}
-       [_ value]]
-    (if (and (not= value "")
-             (>= current-time-ms
-                 (+ (::db/autosuggest-last-query-time-ms db)
-                    autosuggest-debounce-delay-ms)))
-      {::ef/get-anything
-       {:url        (gstr/format (str conf/navitia-base-url "/v1/coverage/%s/places") navitia-coverage)
-        :params     {:q               value
-                     :key             sec/navitia-api-key
-                     :disable_geojson "true"}
-        :on-success ::suggestions-resp-received
-        :on-error   ::suggestions-err-received}})))
-
-(re-frame/reg-event-fx
-  ::autosuggest-query-change
-  [(re-frame/inject-cofx ::ef/get-current-time)]
-  (fn [{db              :db
-        current-time-ms ::ef/current-time-ms}
-       [_ value]]
-    {:db             (assoc db ::db/autosuggest-query value
-                               ::db/autosuggest-last-query-time-ms current-time-ms
-                               ::db/autosuggest-error nil
-                               ::db/autosuggest-results [])
-     :dispatch-later [{:ms       autosuggest-debounce-delay-ms
-                       :dispatch [::autosuggest-query-confirmation value]}]}))
 
 ; Journeys
 
@@ -103,14 +66,6 @@
 
 ; Autosuggest
 
-(re-frame/reg-event-db
-  ::suggestions-resp-received
-  (fn [db [_ resp-body]]
-    (assoc db ::db/autosuggest-results
-              (->> resp-body
-                   (:places)
-                   (map #(:name %))))))
-
 (defn journey-start-or-end [db]
   (if (= ::db/autosuggest-field-start
          (::db/autosuggest-field db))
@@ -118,12 +73,10 @@
     ::db/journey-end))
 
 (re-frame/reg-event-fx
-  ::autosuggest-item-selection
+  ::nav-to-start-end-selection
   (fn [{:keys [db]}
        [_ text]]
-    {:db (assoc db ::db/autosuggest-query text
-                   ::db/active-panel ::db/panel-start-end-selection
-                   ::db/autosuggest-results []
+    {:db (assoc db ::db/active-panel ::db/panel-start-end-selection
                    (journey-start-or-end db) text)}))
 
 (re-frame/reg-event-db
@@ -150,7 +103,7 @@
    ::ef/get-anything
        {:url        (gstr/format "%s/v1/coverage/%s/journeys"
                                  conf/navitia-base-url
-                                 navitia-coverage)
+                                 conf/navitia-coverage)
         :params     {:from            ::db/journey-start-id
                      :to              ::db/journey-end-id
                      :key             sec/navitia-api-key

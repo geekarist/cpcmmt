@@ -32,19 +32,8 @@
   (fn [db]
     (::db/journey-end db)))
 
-; Autosuggest
-
 (re-frame/reg-sub
-  ::autosuggest-value
+  ::autosuggest-initial-query
   (fn [db]
-    (::db/autosuggest-query db)))
+    (::db/autosuggest-initial-query db)))
 
-(re-frame/reg-sub
-  ::autosuggest-error
-  (fn [db]
-    (::db/autosuggest-error db)))
-
-(re-frame/reg-sub
-  ::autosuggest-results
-  (fn [db]
-    (::db/autosuggest-results db)))

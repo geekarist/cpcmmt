@@ -1,4 +1,4 @@
-(ns app.effects
+(ns common.effects
   (:require [re-frame.core :as re-frame]
             [ajax.core :refer [GET]]))
 

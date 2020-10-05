@@ -4,7 +4,8 @@
     [app.subs :as subs]
     [app.events :as ev]
     [clojure.string :as str]
-    [app.db :as db]))
+    [app.db :as db]
+    [autosuggest.views]))
 
 ; Home
 
@@ -26,20 +27,18 @@
         :placeholder "Start"
         :value       @journey-start
         :on-change   #(rf/dispatch [::ev/journey-start-change (-> % .-target .-value)])
-        :on-focus    #(do (rf/dispatch [::ev/autosuggest-query-change (-> % .-target .-value)])
-                          (rf/dispatch [::ev/navigation-to-autosuggest-start
-                                        (-> % .-target .-value)
-                                        "autosuggest-query-field"]))}]]
+        :on-focus    #(rf/dispatch [::ev/navigation-to-autosuggest-start
+                                    (-> % .-target .-value)
+                                    "autosuggest-query-field"])}]]
      [:div.form-group
       [:input.form-control
        {:type        "text"
         :placeholder "End"
         :value       @journey-end
         :on-change   #(rf/dispatch [::ev/journey-end-change (-> % .-target .-value)])
-        :on-focus    #(do (rf/dispatch [::ev/autosuggest-query-change (-> % .-target .-value)])
-                          (rf/dispatch [::ev/navigation-to-autosuggest-end
-                                        (-> % .-target .-value)
-                                        "autosuggest-query-field"]))}]]
+        :on-focus    #(rf/dispatch [::ev/navigation-to-autosuggest-end
+                                    (-> % .-target .-value)
+                                    "autosuggest-query-field"])}]]
      [:button.btn.btn-primary {:on-click #(rf/dispatch [::ev/journey-search-submission])} "Go!"]]))
 
 ; Journeys
@@ -70,31 +69,10 @@
 
 ; Autosuggest
 
-(defn autosuggest-button [on-click text]
-  [:button.list-group-item.list-group-item-action
-   {:on-click #(on-click text)}
-   text])
-
-(defn autosuggest-component [query on-suggestion-selected]
-  (let [error (rf/subscribe [::subs/autosuggest-error])
-        results (rf/subscribe [::subs/autosuggest-results])]
-    [:div.container.mt-3
-     [:div.form-group
-      [:input#autosuggest-query-field.form-control
-       {:type      "text"
-        :value     query
-        :on-change #(rf/dispatch [::ev/autosuggest-query-change (-> % .-target .-value)])}]]
-     (if @error
-       [:div.alert.alert-warning "Error fetching suggestions: " @error]
-       (->> @results
-            (map (partial autosuggest-button on-suggestion-selected))
-            (cons :div.list-group)
-            (vec)))]))
-
 (defn autosuggest-panel []
-  (let [query @(rf/subscribe [::subs/autosuggest-value])
-        on-suggestion-selected #(rf/dispatch [::ev/autosuggest-item-selection %])]
-    [autosuggest-component query on-suggestion-selected]))
+  (let [query @(rf/subscribe [::subs/autosuggest-initial-query])
+        on-suggestion-selected #(rf/dispatch [::ev/nav-to-start-end-selection %])]
+    [autosuggest.views/autosuggest-component query on-suggestion-selected]))
 
 ; App
 
