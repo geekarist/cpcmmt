@@ -104,8 +104,8 @@
        {:url        (gstr/format "%s/v1/coverage/%s/journeys"
                                  conf/navitia-base-url
                                  conf/navitia-coverage)
-        :params     {:from            ::db/journey-start-id
-                     :to              ::db/journey-end-id
+        :params     {:from            (::db/journey-start-id db)
+                     :to              (::db/journey-end-id db)
                      :key             sec/navitia-api-key
                      :disable_geojson "true"}
         :on-success ::journeys-resp-received
