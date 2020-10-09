@@ -14,19 +14,19 @@
             (assoc coll k v)))
 
 (defn autosuggest-component [initial-query on-suggestion-selected]
-  (let [query (rf/subscribe [::subs/query])
-        error (rf/subscribe [::subs/autosuggest-error])
-        results (rf/subscribe [::subs/autosuggest-results])]
+  (let [query-updated? @(rf/subscribe [::subs/query])
+        error @(rf/subscribe [::subs/autosuggest-error])
+        results @(rf/subscribe [::subs/autosuggest-results])]
     [:div.container.mt-3
      [:div.form-group
       [:input#autosuggest-query-field.form-control
        (-> {:type      "text"
             :on-select #(rf/dispatch [::ev/autosuggest-query-change (-> % .-target .-value)])
             :on-change #(rf/dispatch [::ev/autosuggest-query-change (-> % .-target .-value)])}
-           (assoc-unless :value initial-query @query))]]
-     (if @error
-       [:div.alert.alert-warning "Error fetching suggestions: " @error]
-       (->> @results
+           (assoc-unless :value initial-query query-updated?))]]
+     (if error
+       [:div.alert.alert-warning "Error fetching suggestions: " error]
+       (->> results
             (map (partial autosuggest-button on-suggestion-selected))
             (cons :div.list-group)
             (vec)))]))
