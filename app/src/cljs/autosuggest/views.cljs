@@ -16,11 +16,12 @@
     [:div.container.mt-3
      [:div.form-group
       [:input#autosuggest-query-field.form-control
-       {:type      "text"
-        :value     (if @query @query
-                              initial-query)
-        :on-select #(rf/dispatch [::ev/autosuggest-query-change (-> % .-target .-value)])
-        :on-change #(rf/dispatch [::ev/autosuggest-query-change (-> % .-target .-value)])}]]
+       (-> {:type      "text"
+            :on-select #(rf/dispatch [::ev/autosuggest-query-change (-> % .-target .-value)])
+            :on-change #(rf/dispatch [::ev/autosuggest-query-change (-> % .-target .-value)])}
+           ((fn [kv] (if @query
+                       kv
+                       (assoc kv :value initial-query)))))]]
      (if @error
        [:div.alert.alert-warning "Error fetching suggestions: " @error]
        (->> @results
