@@ -9,6 +9,10 @@
                    (rf/dispatch [::ev/reset text]))}
    text])
 
+(defn assoc-unless "Associate `k` to `v` in `coll` unless `cond?` is verified" [coll k v cond?]
+  (if cond? coll
+            (assoc coll k v)))
+
 (defn autosuggest-component [initial-query on-suggestion-selected]
   (let [query (rf/subscribe [::subs/query])
         error (rf/subscribe [::subs/autosuggest-error])
@@ -19,9 +23,7 @@
        (-> {:type      "text"
             :on-select #(rf/dispatch [::ev/autosuggest-query-change (-> % .-target .-value)])
             :on-change #(rf/dispatch [::ev/autosuggest-query-change (-> % .-target .-value)])}
-           ((fn [kv] (if @query
-                       kv
-                       (assoc kv :value initial-query)))))]]
+           (assoc-unless :value initial-query @query))]]
      (if @error
        [:div.alert.alert-warning "Error fetching suggestions: " @error]
        (->> @results
