@@ -118,18 +118,24 @@
               ::db/journeys [])))
 
 (defn journey-resp->item [journey-resp]
-  {::segments   ["Walk" "R" "14"]
-   ::duration   (:duration journey-resp)
-   ::start-date "07:10" ::start-station (-> journey-resp
-                                            (:sections)
-                                            (first)
-                                            (:from)
-                                            (:name))
-   ::end-date   "08:34" ::end-station (-> journey-resp
-                                          (:sections)
-                                          (last)
-                                          (:to)
-                                          (:name))})
+  (let [segments ["Walk" "R" "14"]
+        duration (:duration journey-resp)
+        start-date "07:10"
+        start-station (-> journey-resp
+                          (:sections)
+                          (first)
+                          (:from)
+                          (:name))
+        end-date "08:34"
+        end-station (-> journey-resp
+                        (:sections)
+                        (last)
+                        (:to)
+                        (:name))]
+    {::segments   segments
+     ::duration   duration
+     ::start-date start-date ::start-station start-station
+     ::end-date   end-date ::end-station end-station}))
 
 (re-frame/reg-event-fx
   ::journeys-resp-received
