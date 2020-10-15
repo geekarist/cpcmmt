@@ -61,11 +61,11 @@
       [:div.col-3.text-right (::ev/end-date journey)]]]]])
 
 (defn journeys-panel []
-  (let [journeys (rf/subscribe [::subs/journeys])
-        error (rf/subscribe [::subs/journeys-error])]
-    (if @error
-      [:div.alert.alert-warning "Error fetching journeys: " (str @error)]
-      [:div.container.mt-3 (map journey-view @journeys)])))
+  (let [journeys @(rf/subscribe [::subs/journeys])
+        error @(rf/subscribe [::subs/journeys-error])]
+    (if error
+      [:div.alert.alert-warning "Error fetching journeys: " (str error)]
+      [:div.container.mt-3 (map journey-view journeys)])))
 
 ; Autosuggest
 
