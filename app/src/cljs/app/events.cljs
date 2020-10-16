@@ -117,9 +117,29 @@
     (assoc db ::db/journeys-error resp
               ::db/journeys [])))
 
+(defn seconds->formatted [duration-sec]
+  (let [hours (-> duration-sec
+                  (/ 3600)
+                  (Math/floor))
+        hours-as-sec (* hours 3600)
+        minutes (-> duration-sec
+                    (- hours-as-sec)
+                    (/ 60)
+                    (Math/floor))
+        mins-as-sec (* minutes 60)
+        seconds (- duration-sec (+ hours-as-sec mins-as-sec))]
+    (str hours " h " minutes " m " seconds " s")))
+
+(comment
+  (seconds->formatted (+ 27
+                         (* 60 22)
+                         (* 3600 12))))
+
 (defn journey-resp->item [journey-resp]
   (let [segments ["Walk" "R" "14"]
-        duration (:duration journey-resp)
+        duration (-> journey-resp
+                     (:duration)
+                     (seconds->formatted))
         start-date "07:10"
         start-station (-> journey-resp
                           (:sections)
