@@ -137,8 +137,14 @@
                          (* 60 22)
                          (* 3600 12))))
 
+(defn section->formatted-mode [section]
+  (:mode section))
+
 (defn journey-resp->item [journey-resp]
   (let [segments ["Walk" "R" "14"]
+        segments (->> journey-resp
+                      (:sections)
+                      (map section->formatted-mode))
         duration (-> journey-resp
                      (:duration)
                      (seconds->formatted))
