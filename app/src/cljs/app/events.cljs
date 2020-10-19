@@ -128,7 +128,9 @@
                     (Math/floor))
         mins-as-sec (* minutes 60)
         seconds (- duration-sec (+ hours-as-sec mins-as-sec))]
-    (str hours " h " minutes " m " seconds " s")))
+    (str (if (> hours 0) (str hours " h "))
+         (if (> minutes 0) (str minutes " m "))
+         seconds " s")))
 
 (comment
   (seconds->formatted (+ 27
