@@ -135,10 +135,19 @@
 (comment
   (seconds->formatted (+ 27
                          (* 60 22)
-                         (* 3600 12))))
+                         (* 3600 12)))
+  )
 
 (defn section->formatted-mode [section]
-  (:mode section))
+  (or (-> section
+          (:display_informations)
+          (#(str
+              (:commercial_mode %)
+              (:label %)))
+          (not-empty))
+      (:mode section)
+      (:transfer_type section)
+      (:type section)))
 
 (defn journey-resp->item [journey-resp]
   (let [segments ["Walk" "R" "14"]
