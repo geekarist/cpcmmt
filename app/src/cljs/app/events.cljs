@@ -7,7 +7,8 @@
     [app.utils :refer [json->clj]]
     [common.effects :as ef]
     [common.config :as conf]
-    [common.secrets :as sec]))
+    [common.secrets :as sec]
+    [clojure.string :as str]))
 
 (re-frame/reg-event-db
   ::db-initialization
@@ -138,22 +139,34 @@
                          (* 3600 12)))
   )
 
+(defn section->transport-mode [section]
+  (-> section
+      (:display_informations)
+      (#(str
+          (:commercial_mode %)
+          (:label %)))
+      (str/trim)
+      (not-empty)))
+
 (defn section->formatted-mode [section]
-  (or (-> section
-          (:display_informations)
-          (#(str
-              (:commercial_mode %)
-              (:label %)))
-          (not-empty))
+  (or (section->transport-mode section)
       (:mode section)
       (:transfer_type section)
       (:type section)))
 
+(defn formatted-mode->with-emojis [mode]
+  (-> mode
+      (str/replace #"walking" "🚶‍")
+      (str/replace #"Métro" "🚋")
+      (str/replace #"RER" "🚆")
+      (str/replace #"Bus" "🚌")
+      (str/replace #"waiting" "⌚️")))
+
 (defn journey-resp->item [journey-resp]
-  (let [segments ["Walk" "R" "14"]
-        segments (->> journey-resp
+  (let [segments (->> journey-resp
                       (:sections)
-                      (map section->formatted-mode))
+                      (map section->formatted-mode)
+                      (map formatted-mode->with-emojis))
         duration (-> journey-resp
                      (:duration)
                      (seconds->formatted))

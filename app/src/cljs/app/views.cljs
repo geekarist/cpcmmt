@@ -43,13 +43,19 @@
 
 ; Journeys
 
+(comment
+  (->> ["a" "b" "c"]
+       (map (fn [text] [:span text]))
+       (interpose "·")))
+
 (defn journey-view [journey]
   [:div.card.mb-3 {:key journey}
    [:div.card-body.pl-2.pr-2
     [:div.container
      [:div.row.no-gutters.pb-2
       [:div.col (->> (::ev/segments journey)
-                     (str/join " · "))]
+                     (map (fn [text] [:span.ml-1.mr-1 text]))
+                     (interpose [:span "·"]))]
       [:div.col.text-right (::ev/duration journey)]]
      [:div.row.no-gutters.pl-1
       [:div.col-2.text-right.pr-1 "From:"]
