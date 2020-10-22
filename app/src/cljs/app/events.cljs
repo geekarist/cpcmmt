@@ -88,13 +88,6 @@
 
 ; Journeys
 
-(defn- fake-journey [[num db] _]
-  (comment (str "Journey from " (::db/journey-start db) " to " (::db/journey-end db) " " num))
-  {::segments   ["Walk" "R" "14"]
-   ::duration   "1 h 24"
-   ::start-date "07:10" ::start-station "Montigny-sur-Loing"
-   ::end-date   "08:34" ::end-station "Paris Gare de Lyon"})
-
 (defn- handle-get-journeys [{:keys [db]} _]
   ;(as-> [1 2 3 4 5 6 7 8 9] v
   ;(map (fn [num] [num db]) v)                         ; `(map #([% db]) v)` does not work 🤔 - see https://stackoverflow.com/a/13206291/1665730
@@ -144,6 +137,7 @@
       (:display_informations)
       (#(str
           (:commercial_mode %)
+          " "
           (:label %)))
       (str/trim)
       (not-empty)))
