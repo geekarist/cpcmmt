@@ -3,11 +3,11 @@
             [autosuggest.subs :as subs]
             [autosuggest.events :as ev]))
 
-(defn autosuggest-button [on-click text]
+(defn autosuggest-button [on-click {:keys [name _]}]
   [:button.list-group-item.list-group-item-action
-   {:on-click #(do (on-click text)
-                   (rf/dispatch [::ev/reset text]))}
-   text])
+   {:on-click #(do (on-click name)
+                   (rf/dispatch [::ev/reset name]))}
+   name])
 
 (defn assoc-unless [coll k v cond?]
   (if cond?

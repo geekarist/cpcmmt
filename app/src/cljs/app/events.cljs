@@ -126,12 +126,6 @@
          (if (> minutes 0) (str minutes " m "))
          seconds " s")))
 
-(comment
-  (seconds->formatted (+ 27
-                         (* 60 22)
-                         (* 3600 12)))
-  )
-
 (defn section->transport-mode [section]
   (-> section
       (:display_informations)
