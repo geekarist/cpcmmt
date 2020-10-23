@@ -52,10 +52,10 @@
    [:div.card-body.pl-2.pr-2
     [:div.container
      [:div.row.no-gutters.pb-2
-      [:div.col-9.d-flex.flex-row.flex-wrap
+      [:div.col-8.d-flex.flex-row.flex-wrap
        (->> (::ev/segments journey)
             (map (fn [text] [:span.m-1.p-1.text-nowrap.border text])))]
-      [:div.col-3.text-right (::ev/duration journey)]]
+      [:div.col-4.text-right.lead (::ev/duration journey)]]
      [:div.row.no-gutters.pl-1
       [:div.col-2.text-right.pr-1 "From:"]
       [:div.col-7 (::ev/start-station journey)]
