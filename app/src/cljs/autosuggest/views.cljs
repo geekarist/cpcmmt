@@ -30,10 +30,11 @@
            (assoc-unless :value query-field-value query-updated?))]]
      (if error
        [:div.alert.alert-warning "Error fetching suggestions: " error]
-       (->> results
-            (map (partial autosuggest-button on-suggestion-selected))
-            (cons :div.list-group)
-            (vec)))]))
+       (->> results #_(Collection `coll1 `of {:name "place-name" :id "place-id"})
+            (map  #_(Map to the result of (autosuggest-button on-suggestion-selected coll1))
+              (partial autosuggest-button on-suggestion-selected))
+            (cons :div.list-group) #_(Insert hiccup element ID at the head of the collection)
+            (vec) #_(Convert collection to vector)))]))
 
 
 
