@@ -13,8 +13,8 @@
     (assoc db ::db/autosuggest-results
               (->> resp-body
                    (:places)
-                   (map #(assoc {} :name (:name %)
-                                   :id (:id %)))))))
+                   (map #(assoc {} ::db/name (:name %)
+                                   ::db/id (:id %)))))))
 
 (def autosuggest-debounce-delay-ms 1000)
 

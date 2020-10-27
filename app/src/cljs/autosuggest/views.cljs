@@ -1,9 +1,10 @@
 (ns autosuggest.views
   (:require [re-frame.core :as rf]
             [autosuggest.subs :as subs]
-            [autosuggest.events :as ev]))
+            [autosuggest.events :as ev]
+            [autosuggest.db :as db]))
 
-(defn autosuggest-button [on-click {:keys [name _]}]
+(defn autosuggest-button [on-click {:keys [::db/name _]}]
   [:button.list-group-item.list-group-item-action
    {:on-click #(do (on-click name)
                    (rf/dispatch [::ev/reset name]))}
